@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python Desktop Developer | PySide6 &amp; Qt Specialist</title>
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.6s ease-out forwards',
+            'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            pulseGlow: {
+              '0%, 100%': { boxShadow: '0 0 8px rgba(52,211,153,0.3)' },
+              '50%': { boxShadow: '0 0 24px rgba(52,211,153,0.6)' },
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- FontAwesome 6 (Free) for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    /* ── Global Reset & Base ── */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: #020617;
+      /* slate-950 */
+      color: #e2e8f0;
+      /* slate-200 */
+      overflow-x: hidden;
+    }
+
+    /* ── Scrollbar Styling ── */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+
+    /* ── Selection ── */
+    ::selection {
+      background: rgba(52, 211, 153, 0.3);
+      color: #ecfdf5;
+    }
+
+    /* ── Glass Morphism Utility ── */
+    .glass {
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    /* ── Neon Accent Glow ── */
+    .neon-glow {
+      box-shadow: 0 0 12px rgba(52, 211, 153, 0.15), 0 0 40px rgba(52, 211, 153, 0.05);
+    }
+
+    .neon-border {
+      border: 1px solid rgba(52, 211, 153, 0.15);
+    }
+    .neon-border:hover {
+      border-color: rgba(52, 211, 153, 0.5);
+    }
+
+    /* ── Gradient Text ── */
+    .text-gradient {
+      background: linear-gradient(135deg, #34d399, #22d3ee);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Terminal Cursor Blink ── */
+    .cursor-blink::after {
+      content: '|';
+      animation: blink 1s step-end infinite;
+      color: #34d399;
+      font-weight: 300;
+    }
+    @keyframes blink {
+      0%,
+      100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+    }
+
+    /* ── Skill Card Micro-interaction ── */
+    .skill-card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .skill-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(52, 211, 153, 0.4);
+      box-shadow: 0 8px 30px rgba(52, 211, 153, 0.1);
+    }
+
+    /* ── Project Card ── */
+    .project-card {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .project-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(52, 211, 153, 0.3);
+      box-shadow: 0 12px 40px rgba(52, 211, 153, 0.08);
+    }
+
+    /* ── Placeholder Animation ── */
+    .placeholder-pulse {
+      background: linear-gradient(110deg, #1e293b 30%, #334155 50%, #1e293b 70%);
+      background-size: 200% 100%;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0% {
+        background-position: 200% 0;
+      }
+      100% {
+        background-position: -200% 0;
+      }
+    }
+
+    /* ── Fade-in on scroll (reveal) ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Nav link hover ── */
+    .nav-link {
+      position: relative;
+      transition: color 0.2s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #34d399, #22d3ee);
+      transition: width 0.3s ease;
+      border-radius: 2px;
+    }
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+    .nav-link.active {
+      color: #34d399;
+    }
+
+    /* ── Social button hover ── */
+    .social-btn {
+      transition: all 0.3s ease;
+    }
+    .social-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 24px rgba(52, 211, 153, 0.15);
+    }
+
+    /* ── Mobile nav overlay ── */
+    #mobile-menu {
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+    }
+
+    /* ── Particle canvas (hero bg) ── */
+    #particles-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── Lightbox ── */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(2, 6, 23, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    #lightbox.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    #lightbox img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    #lightbox .lb-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      color: #94a3b8;
+      font-size: 28px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    #lightbox .lb-close:hover { color: #fff; }
+    #lightbox .lb-prev,
+    #lightbox .lb-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 32px;
+      cursor: pointer;
+      padding: 16px;
+      transition: color 0.2s;
+    }
+    #lightbox .lb-prev:hover,
+    #lightbox .lb-next:hover { color: #fff; }
+    #lightbox .lb-prev { left: 16px; }
+    #lightbox .lb-next { right: 16px; }
+    #lightbox .lb-counter {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #64748b;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+    }
+    .carousel-img { cursor: pointer; }
+
+    /* ── Code badge pulse ── */
+    .tech-badge {
+      transition: all 0.2s ease;
+    }
+    .tech-badge:hover {
+      background: rgba(52, 211, 153, 0.15);
+      border-color: rgba(52, 211, 153, 0.4);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════════════════════════
+  NAVIGATION
+  ══════════════════════════════════════════════════ -->
+  <header id="navbar"
+  class="fixed top-0 left-0 w-full z-50 transition-all duration-300"
+  role="banner">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 lg:h-20">
+      <!-- Logo -->
+      <a href="#hero" class="flex items-center gap-2 group" aria-label="Home">
+        <span class="text-xl font-bold tracking-tight">
+          <span class="text-emerald-400">&lt;</span>
+          <span class="text-white group-hover:text-emerald-300 transition-colors">Djalil</span>
+          <span class="text-emerald-400">/&gt;</span>
+        </span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-8" aria-label="Main navigation">
+        <a href="#about" class="nav-link text-sm font-medium text-zinc-400 hover:text-white transition-colors">About</a>
+        <a href="#skills" class="nav-link text-sm font-medium text-zinc-400 hover:text-white transition-colors">Skills</a>
+        <a href="#projects" class="nav-link text-sm font-medium text-zinc-400 hover:text-white transition-colors">Projects</a>
+        <a href="#contact" class="nav-link text-sm font-medium text-zinc-400 hover:text-white transition-colors">Contact</a>
+        <a href="#contact"
+        class="ml-2 px-5 py-2 text-sm font-semibold rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20 hover:border-emerald-400/50 transition-all duration-300 neon-glow">
+        <i class="fa-regular fa-paper-plane mr-1.5"></i> Hire Me
+      </a>
+    </nav>
+
+    <!-- Mobile Hamburger -->
+    <button id="menu-toggle" class="md:hidden relative w-9 h-9 flex items-center justify-center rounded-lg border border-zinc-800 hover:border-zinc-600 transition-colors"
+    aria-label="Toggle navigation menu" aria-expanded="false">
+    <div class="flex flex-col gap-1.5">
+      <span class="block w-5 h-[2px] bg-zinc-300 transition-all duration-300 origin-center" id="bar1"></span>
+      <span class="block w-5 h-[2px] bg-zinc-300 transition-all duration-300" id="bar2"></span>
+      <span class="block w-5 h-[2px] bg-zinc-300 transition-all duration-300 origin-center" id="bar3"></span>
+    </div>
+  </button>
+</div>
+</div>
+
+<!-- Mobile Menu Dropdown -->
+<nav id="mobile-menu"
+class="md:hidden absolute top-full left-0 w-full glass border-b border-zinc-800/60 opacity-0 -translate-y-4 pointer-events-none"
+aria-label="Mobile navigation">
+<div class="px-4 py-6 flex flex-col gap-4">
+  <a href="#about" class="mobile-link text-base font-medium text-zinc-300 hover:text-emerald-400 transition-colors py-2">About</a>
+  <a href="#skills" class="mobile-link text-base font-medium text-zinc-300 hover:text-emerald-400 transition-colors py-2">Skills</a>
+  <a href="#projects" class="mobile-link text-base font-medium text-zinc-300 hover:text-emerald-400 transition-colors py-2">Projects</a>
+  <a href="#contact" class="mobile-link text-base font-medium text-zinc-300 hover:text-emerald-400 transition-colors py-2">Contact</a>
+  <a href="#contact"
+  class="mt-2 px-5 py-3 text-center text-sm font-semibold rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 transition-colors">
+  <i class="fa-regular fa-paper-plane mr-1.5"></i> Hire Me
+</a>
+</div>
+</nav>
+</header>
+
+
+<!-- ══════════════════════════════════════════════════
+HERO SECTION
+══════════════════════════════════════════════════ -->
+<section id="hero"
+class="relative min-h-screen flex items-center justify-center overflow-hidden pt-16"
+aria-label="Hero introduction">
+
+<!-- Particle / grid background -->
+<canvas id="particles-canvas"></canvas>
+
+<!-- Subtle gradient orbs -->
+<div class="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+<div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
+
+  <!-- Code badge -->
+  <div class="inline-flex items-center gap-2 px-4 py-1.5 mb-6 rounded-full border border-zinc-800 bg-zinc-900/60 text-xs font-mono text-zinc-500 neon-border">
+    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+    <span class="text-emerald-400">$</span> <span class="text-zinc-400">~/developer</span>
+    <span class="text-zinc-600 mx-1">—</span>
+    <span class="text-zinc-500">v2.0.1</span>
+  </div>
+
+  <!-- Headline -->
+  <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight text-white">
+    Python Desktop<br class="sm:hidden" />
+    <span class="text-gradient">Developer</span>
+    <br />
+    <span class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-zinc-400">
+      PySide6 &amp; Qt Specialist
+    </span>
+  </h1>
+
+  <!-- Subheadline -->
+  <p class="mt-6 max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-zinc-400 leading-relaxed">
+    Building high-performance, secure, offline-first desktop applications
+    compiled into single-file <span class="font-mono text-emerald-400 text-sm md:text-base">.exe</span> packages.
+    <span class="block mt-1 text-zinc-500 text-sm md:text-base">
+      No bloat. No runtime dependencies. Just clean, compiled power.
+    </span>
+  </p>
+
+  <!-- CTA Buttons -->
+  <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+    <a href="#projects"
+    class="group w-full sm:w-auto px-8 py-3.5 text-sm font-semibold rounded-xl bg-emerald-500 text-zinc-900 hover:bg-emerald-400 transition-all duration-300 shadow-lg shadow-emerald-500/20 hover:shadow-emerald-400/30 inline-flex items-center justify-center gap-2">
+    <i class="fa-regular fa-folder-open"></i>
+    View Portfolio
+    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+  </a>
+  <a href="#contact"
+  class="group w-full sm:w-auto px-8 py-3.5 text-sm font-semibold rounded-xl border border-zinc-700 text-zinc-300 hover:border-emerald-500/50 hover:text-emerald-400 transition-all duration-300 inline-flex items-center justify-center gap-2">
+  <i class="fa-regular fa-handshake"></i>
+  Hire Me
+  <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+</a>
+</div>
+
+<!-- Terminal-style stats row -->
+<div class="mt-16 flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-sm font-mono text-zinc-600">
+  <span class="flex items-center gap-2">
+    <span class="text-emerald-400">◆</span> 6+ yrs exp
+  </span>
+  <span class="flex items-center gap-2">
+    <span class="text-emerald-400">◆</span> 15+ apps shipped
+  </span>
+  <span class="flex items-center gap-2">
+    <span class="text-emerald-400">◆</span> 100% offline-capable
+  </span>
+</div>
+</div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════
+ABOUT ME
+══════════════════════════════════════════════════ -->
+<section id="about"
+class="relative py-24 sm:py-32 border-t border-zinc-800/50"
+aria-label="About me">
+
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+
+    <!-- Left: decorative code block -->
+    <div class="reveal">
+      <div class="relative">
+        <div class="absolute -top-3 -left-3 w-full h-full rounded-2xl border border-emerald-500/10"></div>
+        <div class="relative bg-zinc-900/80 rounded-2xl border border-zinc-800 p-6 font-mono text-sm leading-relaxed overflow-x-auto neon-border">
+          <div class="flex items-center gap-2 mb-4 pb-3 border-b border-zinc-800">
+            <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
+            <span class="w-3 h-3 rounded-full bg-emerald-500/60"></span>
+            <span class="ml-2 text-zinc-600 text-xs">developer.py</span>
+          </div>
+          <pre class="text-zinc-400"><span class="text-purple-400">import</span> <span class="text-cyan-300">foundation</span>
+<span class="text-purple-400">from</span> <span class="text-cyan-300">expertise</span> <span class="text-purple-400">import</span> (
+  PySide6,
+  Qt,
+  SQLite,
+  Selenium,
+  PyInstaller
+)
+
+<span class="text-zinc-500"># Build performant desktop apps</span>
+<span class="text-purple-400">class</span> <span class="text-yellow-300">Developer</span>:
+  <span class="text-purple-400">def</span> <span class="text-cyan-300">__init__</span>(<span class="text-zinc-300">self</span>):
+    <span class="text-zinc-300">self</span>.<span class="text-zinc-300">focus</span> = <span class="text-emerald-400">"Desktop UI &amp; Security"</span>
+    <span class="text-zinc-300">self</span>.<span class="text-zinc-300">ethos</span> = <span class="text-emerald-400">"Offline-first, compiled, clean"</span>
+
+  <span class="text-purple-400">def</span> <span class="text-cyan-300">deliver</span>(<span class="text-zinc-300">self</span>):
+    <span class="text-purple-400">return</span> <span class="text-emerald-400">"Single-file .exe — zero friction"</span></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: intro text -->
+    <div class="reveal">
+      <span class="text-xs font-mono text-emerald-400 tracking-widest uppercase">// about_me</span>
+      <h2 class="mt-3 text-3xl sm:text-4xl font-bold text-white">
+        Crafting Desktop
+        <span class="text-gradient">Experiences</span>
+      </h2>
+      <p class="mt-5 text-zinc-400 leading-relaxed">
+        I specialize in building modern desktop applications with <strong class="text-zinc-200">Python</strong>
+        and <strong class="text-zinc-200">PySide6 (Qt)</strong>. Every app I ship is designed with
+        <strong class="text-zinc-200">multi-threading stability</strong> at its core — ensuring the UI
+        never freezes, even under heavy workloads.
+      </p>
+      <p class="mt-4 text-zinc-400 leading-relaxed">
+        I'm passionate about <strong class="text-zinc-200">local data security</strong>, offline-first
+        architecture, and delivering standalone <span class="font-mono text-emerald-400">.exe</span>
+        packages that your users can run immediately — no installers, no runtimes, no hassle.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <span class="px-3 py-1.5 text-xs font-mono rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-300">PySide6</span>
+        <span class="px-3 py-1.5 text-xs font-mono rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-300">Qt</span>
+        <span class="px-3 py-1.5 text-xs font-mono rounded-lg bg-zinc-800 border border-zinc-700 text-zinc-300">SQLite</span>
+        <span class="px-3 py-1.5 text-xs font-mono rounded-lg bg-zinc-800 border border-zinc-700 text-zinc-300">Selenium</span>
+        <span class="px-3 py-1.5 text-xs font-mono rounded-lg bg-zinc-800 border border-zinc-700 text-zinc-300">PyInstaller</span>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════
+SKILLS GRID
+══════════════════════════════════════════════════ -->
+<section id="skills"
+class="relative py-24 sm:py-32 border-t border-zinc-800/50"
+aria-label="Technical skills">
+
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- Section header -->
+  <div class="text-center reveal">
+    <span class="text-xs font-mono text-emerald-400 tracking-widest uppercase">// core_competencies</span>
+    <h2 class="mt-3 text-3xl sm:text-4xl font-bold text-white">
+      Tech <span class="text-gradient">Stack</span>
+    </h2>
+    <p class="mt-3 text-zinc-400 max-w-xl mx-auto">
+      Every tool I use is chosen for performance, reliability, and clean architecture.
+    </p>
+  </div>
+
+  <!-- Skills grid -->
+  <div class="mt-14 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
+
+    <!-- Skill 1 -->
+    <div class="skill-card relative p-5 rounded-xl border border-zinc-800 bg-zinc-900/40 flex flex-col items-center text-center group">
+      <div class="w-11 h-11 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xl">
+        <i class="fa-brands fa-python"></i>
+      </div>
+      <span class="mt-3 text-sm font-semibold text-white">Python</span>
+      <span class="mt-0.5 text-xs text-zinc-500">Core language</span>
+    </div>
+
+    <!-- Skill 2 -->
+    <div class="skill-card relative p-5 rounded-xl border border-zinc-800 bg-zinc-900/40 flex flex-col items-center text-center group">
+      <div class="w-11 h-11 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xl">
+        <i class="fa-solid fa-window-maximize"></i>
+      </div>
+      <span class="mt-3 text-sm font-semibold text-white">PySide6 / Qt</span>
+      <span class="mt-0.5 text-xs text-zinc-500">GUI framework</span>
+    </div>
+
+    <!-- Skill 3 -->
+    <div class="skill-card relative p-5 rounded-xl border border-zinc-800 bg-zinc-900/40 flex flex-col items-center text-center group">
+      <div class="w-11 h-11 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xl">
+        <i class="fa-solid fa-database"></i>
+      </div>
+      <span class="mt-3 text-sm font-semibold text-white">SQLite</span>
+      <span class="mt-0.5 text-xs text-zinc-500">Local DB</span>
+    </div>
+
+    <!-- Skill 4 -->
+    <div class="skill-card relative p-5 rounded-xl border border-zinc-800 bg-zinc-900/40 flex flex-col items-center text-center group">
+      <div class="w-11 h-11 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-xl">
+        <i class="fa-solid fa-robot"></i>
+      </div>
+      <span class="mt-3 text-sm font-semibold text-white">RPA / Selenium</span>
+      <span class="mt-0.5 text-xs text-zinc-500">Automation</span>
+    </div>
+
+    <!-- Skill 5 -->
+    <div class="skill-card relative p-5 rounded-xl border border-zinc-800 bg-zinc-900/40 flex flex-col items-center text-center group">
+      <div class="w-11 h-11 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-xl">
+        <i class="fa-solid fa-box"></i>
+      </div>
+      <span class="mt-3 text-sm font-semibold text-white">PyInstaller</span>
+      <span class="mt-0.5 text-xs text-zinc-500">Packaging</span>
+    </div>
+
+    <!-- Skill 6 -->
+    <div class="skill-card relative p-5 rounded-xl border border-zinc-800 bg-zinc-900/40 flex flex-col items-center text-center group">
+      <div class="w-11 h-11 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-xl">
+        <i class="fa-solid fa-chart-simple"></i>
+      </div>
+      <span class="mt-3 text-sm font-semibold text-white">Pandas</span>
+      <span class="mt-0.5 text-xs text-zinc-500">Data analysis</span>
+    </div>
+
+    <!-- Skill 7 -->
+    <div class="skill-card relative p-5 rounded-xl border border-zinc-800 bg-zinc-900/40 flex flex-col items-center text-center group">
+      <div class="w-11 h-11 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-400 text-xl">
+        <i class="fa-solid fa-cloud-arrow-down"></i>
+      </div>
+      <span class="mt-3 text-sm font-semibold text-white">Web Scraping</span>
+      <span class="mt-0.5 text-xs text-zinc-500">BS4 / Requests</span>
+    </div>
+
+    <!-- Skill 8 -->
+    <div class="skill-card relative p-5 rounded-xl border border-zinc-800 bg-zinc-900/40 flex flex-col items-center text-center group">
+      <div class="w-11 h-11 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-400 text-xl">
+        <i class="fa-regular fa-file-excel"></i>
+      </div>
+      <span class="mt-3 text-sm font-semibold text-white">openpyxl / CSV</span>
+      <span class="mt-0.5 text-xs text-zinc-500">Data export</span>
+    </div>
+
+  </div>
+</div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════
+FEATURED PROJECTS
+══════════════════════════════════════════════════ -->
+<section id="projects"
+class="relative py-24 sm:py-32 border-t border-zinc-800/50"
+aria-label="Featured projects">
+
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- Section header -->
+  <div class="text-center reveal">
+    <span class="text-xs font-mono text-emerald-400 tracking-widest uppercase">// featured_work</span>
+    <h2 class="mt-3 text-3xl sm:text-4xl font-bold text-white">
+      Flagship <span class="text-gradient">Projects</span>
+    </h2>
+    <p class="mt-3 text-zinc-400 max-w-xl mx-auto">
+      Production-grade desktop applications built with Python &amp; PySide6.
+    </p>
+  </div>
+
+  <!-- Projects grid -->
+  <div class="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+
+    <!-- ── Project 1: Web Scraper Pro ── -->
+    <article class="project-card rounded-2xl border border-zinc-800 bg-zinc-900/40 overflow-hidden flex flex-col">
+      <div class="relative w-full aspect-video overflow-hidden bg-zinc-950" data-carousel="web-scraper-pro">
+        <img src="screenshots/web-scraper-pro-1.png" alt="Web Scraper Pro" class="w-full h-full object-cover carousel-img" data-index="0" />
+        <button class="carousel-prev absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors flex items-center justify-center z-10 opacity-0 group-hover:opacity-100"><i class="fa-solid fa-chevron-left text-xs"></i></button>
+        <button class="carousel-next absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors flex items-center justify-center z-10 opacity-0 group-hover:opacity-100"><i class="fa-solid fa-chevron-right text-xs"></i></button>
+        <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+          <span class="w-1.5 h-1.5 rounded-full bg-white/80 carousel-dot active" data-index="0"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-white/40 carousel-dot" data-index="1"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-white/40 carousel-dot" data-index="2"></span>
+        </div>
+      </div>
+      <!-- Content -->
+      <div class="p-5 sm:p-6 flex flex-col flex-1">
+        <h3 class="text-lg font-bold text-white">Web Scraper Pro</h3>
+        <p class="mt-1.5 text-xs text-zinc-500 font-mono">Multi-threaded desktop scraper</p>
+        <!-- Tech badges -->
+        <div class="mt-3 flex flex-wrap gap-1.5">
+          <span class="tech-badge px-2.5 py-0.5 text-[11px] font-mono rounded-full border border-zinc-700 text-zinc-400 bg-zinc-800/50">Python</span>
+          <span class="tech-badge px-2.5 py-0.5 text-[11px] font-mono rounded-full border border-zinc-700 text-zinc-400 bg-zinc-800/50">PySide6</span>
+          <span class="tech-badge px-2.5 py-0.5 text-[11px] font-mono rounded-full border border-zinc-700 text-zinc-400 bg-zinc-800/50">BS4</span>
+          <span class="tech-badge px-2.5 py-0.5 text-[11px] font-mono rounded-full border border-zinc-700 text-zinc-400 bg-zinc-800/50">openpyxl</span>
+        </div>
+        <!-- Features -->
+        <ul class="mt-4 space-y-2 text-sm text-zinc-400 flex-1">
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-check text-emerald-400 mt-0.5 text-xs"></i>
+            Multi-URL queue &amp; concurrent processing
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-check text-emerald-400 mt-0.5 text-xs"></i>
+            Smart auto-detection of JSON, tables &amp; lists
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-check text-emerald-400 mt-0.5 text-xs"></i>
+            Export to CSV, JSON, Excel &amp; SQLite
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-check text-emerald-400 mt-0.5 text-xs"></i>
+            Custom headers, auth &amp; timeout controls
+          </li>
+        </ul>
+        <!-- Actions -->
+        <div class="mt-5 flex gap-3">
+          <a href="https://github.com/jalildz2004-hub" target="_blank" rel="noopener noreferrer" class="flex-1 px-4 py-2.5 text-xs font-semibold rounded-xl bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:border-zinc-500 transition-all duration-300 inline-flex items-center justify-center gap-1.5">
+            <i class="fa-brands fa-github"></i> Repository
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- ── Project 2: RPA FlowMaster ── -->
+    <article class="project-card rounded-2xl border border-zinc-800 bg-zinc-900/40 overflow-hidden flex flex-col">
+      <div class="relative w-full aspect-video overflow-hidden bg-zinc-950" data-carousel="rpa-flowmaster">
+        <img src="screenshots/rpa-flowmaster-1.png" alt="RPA FlowMaster" class="w-full h-full object-cover carousel-img" data-index="0" />
+        <button class="carousel-prev absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors flex items-center justify-center z-10 opacity-0 group-hover:opacity-100"><i class="fa-solid fa-chevron-left text-xs"></i></button>
+        <button class="carousel-next absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors flex items-center justify-center z-10 opacity-0 group-hover:opacity-100"><i class="fa-solid fa-chevron-right text-xs"></i></button>
+        <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+          <span class="w-1.5 h-1.5 rounded-full bg-white/80 carousel-dot active" data-index="0"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-white/40 carousel-dot" data-index="1"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-white/40 carousel-dot" data-index="2"></span>
+        </div>
+      </div>
+      <div class="p-5 sm:p-6 flex flex-col flex-1">
+        <h3 class="text-lg font-bold text-white">RPA FlowMaster</h3>
+        <p class="mt-1.5 text-xs text-zinc-500 font-mono">Desktop &amp; browser automation bot</p>
+        <div class="mt-3 flex flex-wrap gap-1.5">
+          <span class="tech-badge px-2.5 py-0.5 text-[11px] font-mono rounded-full border border-zinc-700 text-zinc-400 bg-zinc-800/50">Python</span>
+          <span class="tech-badge px-2.5 py-0.5 text-[11px] font-mono rounded-full border border-zinc-700 text-zinc-400 bg-zinc-800/50">Selenium</span>
+          <span class="tech-badge px-2.5 py-0.5 text-[11px] font-mono rounded-full border border-zinc-700 text-zinc-400 bg-zinc-800/50">PyAutoGUI</span>
+          <span class="tech-badge px-2.5 py-0.5 text-[11px] font-mono rounded-full border border-zinc-700 text-zinc-400 bg-zinc-800/50">Pandas</span>
+        </div>
+        <ul class="mt-4 space-y-2 text-sm text-zinc-400 flex-1">
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-check text-emerald-400 mt-0.5 text-xs"></i>
+            Excel/CSV-driven web form automation
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-check text-emerald-400 mt-0.5 text-xs"></i>
+            Visual action builder &amp; macro sequences
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-check text-emerald-400 mt-0.5 text-xs"></i>
+            Real-time logging with stop/cancel safety
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-check text-emerald-400 mt-0.5 text-xs"></i>
+            Headless mode for silent background execution
+          </li>
+        </ul>
+        <div class="mt-5 flex gap-3">
+          <a href="https://github.com/jalildz2004-hub" target="_blank" rel="noopener noreferrer" class="flex-1 px-4 py-2.5 text-xs font-semibold rounded-xl bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:border-zinc-500 transition-all duration-300 inline-flex items-center justify-center gap-1.5">
+            <i class="fa-brands fa-github"></i> Repository
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- ── Project 3: StoreSuite POS ── -->
+    <article class="project-card rounded-2xl border border-zinc-800 bg-zinc-900/40 overflow-hidden flex flex-col">
+      <div class="relative w-full aspect-video overflow-hidden bg-zinc-950" data-carousel="storesuite-pos">
+        <img src="screenshots/storesuite-pos-1.png" alt="StoreSuite POS" class="w-full h-full object-cover carousel-img" data-index="0" />
+        <button class="carousel-prev absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors flex items-center justify-center z-10 opacity-0 group-hover:opacity-100"><i class="fa-solid fa-chevron-left text-xs"></i></button>
+        <button class="carousel-next absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors flex items-center justify-center z-10 opacity-0 group-hover:opacity-100"><i class="fa-solid fa-chevron-right text-xs"></i></button>
+        <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+          <span class="w-1.5 h-1.5 rounded-full bg-white/80 carousel-dot active" data-index="0"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-white/40 carousel-dot" data-index="1"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-white/40 carousel-dot" data-index="2"></span>
+        </div>
+      </div>
+      <div class="p-5 sm:p-6 flex flex-col flex-1">
+        <h3 class="text-lg font-bold text-white">StoreSuite POS</h3>
+        <p class="mt-1.5 text-xs text-zinc-500 font-mono">Offline billing &amp; inventory system</p>
+        <div class="mt-3 flex flex-wrap gap-1.5">
+          <span class="tech-badge px-2.5 py-0.5 text-[11px] font-mono rounded-full border border-zinc-700 text-zinc-400 bg-zinc-800/50">Python</span>
+          <span class="tech-badge px-2.5 py-0.5 text-[11px] font-mono rounded-full border border-zinc-700 text-zinc-400 bg-zinc-800/50">PySide6</span>
+          <span class="tech-badge px-2.5 py-0.5 text-[11px] font-mono rounded-full border border-zinc-700 text-zinc-400 bg-zinc-800/50">SQLite</span>
+          <span class="tech-badge px-2.5 py-0.5 text-[11px] font-mono rounded-full border border-zinc-700 text-zinc-400 bg-zinc-800/50">ReportLab</span>
+        </div>
+        <ul class="mt-4 space-y-2 text-sm text-zinc-400 flex-1">
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-check text-emerald-400 mt-0.5 text-xs"></i>
+            Fast SKU/name search with interactive POS cart
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-check text-emerald-400 mt-0.5 text-xs"></i>
+            Inventory CRUD with low-stock alerts
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-check text-emerald-400 mt-0.5 text-xs"></i>
+            Professional PDF invoice generation
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-check text-emerald-400 mt-0.5 text-xs"></i>
+            Dashboard analytics with QtCharts
+          </li>
+        </ul>
+        <div class="mt-5 flex gap-3">
+          <a href="https://github.com/jalildz2004-hub" target="_blank" rel="noopener noreferrer" class="flex-1 px-4 py-2.5 text-xs font-semibold rounded-xl bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:border-zinc-500 transition-all duration-300 inline-flex items-center justify-center gap-1.5">
+            <i class="fa-brands fa-github"></i> Repository
+          </a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════
+CONTACT / CTA
+══════════════════════════════════════════════════ -->
+<section id="contact"
+class="relative py-24 sm:py-32 border-t border-zinc-800/50"
+aria-label="Contact and call to action">
+
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
+  <!-- Section header -->
+  <span class="text-xs font-mono text-emerald-400 tracking-widest uppercase">// get_in_touch</span>
+  <h2 class="mt-3 text-3xl sm:text-4xl font-bold text-white">
+    Let's Build Something
+    <span class="text-gradient">Powerful</span>
+  </h2>
+  <p class="mt-4 text-zinc-400 max-w-xl mx-auto leading-relaxed">
+    Need a custom desktop application, automation pipeline, or database-driven tool?
+    <span class="block mt-1">I'm available for freelance contracts and long-term collaborations.</span>
+  </p>
+
+  <!-- CTA Card -->
+  <div class="mt-10 max-w-lg mx-auto p-6 sm:p-8 rounded-2xl border border-zinc-800 bg-zinc-900/40 neon-border">
+    <div class="flex items-center justify-center gap-2 mb-4">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span class="text-sm font-mono text-zinc-500">Available for hire</span>
+    </div>
+    <p class="text-zinc-300 text-sm">
+      <i class="fa-regular fa-envelope mr-2 text-emerald-400"></i>
+      <a href="mailto:jalildz2004@gmail.com" class="hover:text-emerald-400 transition-colors">jalildz2004@gmail.com</a>
+    </p>
+    <p class="mt-2 text-zinc-500 text-xs font-mono">
+      <i class="fa-regular fa-clock mr-1.5"></i> Response time: typically within 24h
+    </p>
+  </div>
+
+  <!-- Social links -->
+  <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+
+  <!-- GitHub -->
+  <a href="https://github.com/jalildz2004-hub" target="_blank" rel="noopener noreferrer"
+  class="social-btn px-5 py-3 text-sm font-semibold rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:border-emerald-500/30 hover:text-emerald-400 inline-flex items-center gap-2.5">
+  <i class="fa-brands fa-github text-emerald-400"></i> GitHub
+</a>
+<!-- Email -->
+<a href="mailto:jalildz2004@gmail.com"
+class="social-btn px-5 py-3 text-sm font-semibold rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:border-emerald-500/30 hover:text-emerald-400 inline-flex items-center gap-2.5">
+<i class="fa-regular fa-envelope text-emerald-400"></i> Email
+</a>
+  <!-- LinkedIn -->
+  <a href="https://www.linkedin.com/in/abdel-djalil-messaoud-aberkane-97a242413/" target="_blank" rel="noopener noreferrer"
+  class="social-btn px-5 py-3 text-sm font-semibold rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:border-emerald-500/30 hover:text-emerald-400 inline-flex items-center gap-2.5">
+  <i class="fa-brands fa-linkedin-in text-emerald-400"></i> LinkedIn
+</a>
+</div>
+</div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════
+FOOTER
+══════════════════════════════════════════════════ -->
+<footer class="border-t border-zinc-800/50 py-8">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-600">
+    <p>
+      <span class="text-emerald-400">&lt;</span>
+      <span class="text-zinc-500">Djalil</span>
+      <span class="text-emerald-400">/&gt;</span>
+      &nbsp;© 2026 — Built with Python &amp; PySide6
+    </p>
+    <p class="font-mono">
+      <span class="text-emerald-400">$</span> echo "clean code • clean design"
+    </p>
+  </div>
+</footer>
+
+
+<!-- ══════════════════════════════════════════════════
+JAVASCRIPT
+══════════════════════════════════════════════════ -->
+<script>
+  (function() {
+    'use strict';
+
+    /* ────── 1. Mobile Menu Toggle ────── */
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const bar1 = document.getElementById('bar1');
+    const bar2 = document.getElementById('bar2');
+    const bar3 = document.getElementById('bar3');
+    let menuOpen = false;
+
+    function toggleMenu() {
+      menuOpen = !menuOpen;
+      menuToggle.setAttribute('aria-expanded', menuOpen);
+      mobileMenu.classList.toggle('opacity-0', !menuOpen);
+      mobileMenu.classList.toggle('-translate-y-4', !menuOpen);
+      mobileMenu.classList.toggle('pointer-events-none', !menuOpen);
+      mobileMenu.classList.toggle('opacity-100', menuOpen);
+      mobileMenu.classList.toggle('translate-y-0', menuOpen);
+      mobileMenu.classList.toggle('pointer-events-auto', menuOpen);
+
+      // Hamburger animation
+      if (menuOpen) {
+        bar1.style.transform = 'rotate(45deg) translate(3px, 3px)';
+        bar2.style.opacity = '0';
+        bar3.style.transform = 'rotate(-45deg) translate(3px, -3px)';
+      } else {
+        bar1.style.transform = '';
+        bar2.style.opacity = '';
+        bar3.style.transform = '';
+      }
+    }
+
+    menuToggle.addEventListener('click', toggleMenu);
+
+    // Close menu on link click
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        if (menuOpen) toggleMenu();
+      });
+    });
+
+    /* ────── 2. Scroll-based Navbar styling ────── */
+    const navbar = document.getElementById('navbar');
+    let lastScrollY = 0;
+
+    window.addEventListener('scroll', function() {
+      const scrollY = window.scrollY;
+      if (scrollY > 60) {
+        navbar.classList.add('glass', 'shadow-lg', 'shadow-black/10');
+        navbar.classList.remove('bg-transparent');
+      } else {
+        navbar.classList.remove('glass', 'shadow-lg', 'shadow-black/10');
+        navbar.classList.add('bg-transparent');
+      }
+      lastScrollY = scrollY;
+    }, { passive: true });
+
+    /* ────── 3. Active Nav Link Highlighting ────── */
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    function updateActiveLink() {
+      let current = '';
+      const scrollPos = window.scrollY + 120;
+      sections.forEach(section => {
+        const top = section.offsetTop;
+        const height = section.offsetHeight;
+        if (scrollPos >= top && scrollPos < top + height) {
+          current = section.getAttribute('id');
+        }
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', updateActiveLink, { passive: true });
+    window.addEventListener('load', updateActiveLink);
+
+    /* ────── 4. Scroll Reveal (Intersection Observer) ────── */
+    const revealEls = document.querySelectorAll('.reveal');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -80px 0px',
+      threshold: 0.1
+    };
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    /* ────── 5. Particle Animation (Hero Background) ────── */
+    const canvas = document.getElementById('particles-canvas');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      let w, h, particles = [];
+
+      function resize() {
+        w = canvas.width = canvas.parentElement.offsetWidth;
+        h = canvas.height = canvas.parentElement.offsetHeight;
+      }
+
+      class Particle {
+        constructor() {
+          this.reset();
+        }
+        reset() {
+          this.x = Math.random() * w;
+          this.y = Math.random() * h;
+          this.size = Math.random() * 2 + 0.5;
+          this.speedX = (Math.random() - 0.5) * 0.4;
+          this.speedY = (Math.random() - 0.5) * 0.4;
+          this.opacity = Math.random() * 0.4 + 0.1;
+        }
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+          if (this.x < 0 || this.x > w) this.speedX *= -1;
+          if (this.y < 0 || this.y > h) this.speedY *= -1;
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(52, 211, 153, ${this.opacity})`;
+          ctx.fill();
+        }
+      }
+
+      function initParticles() {
+        const count = Math.min(80, Math.floor((w * h) / 12000));
+        particles = Array.from({ length: count }, () => new Particle());
+      }
+
+      let mouseX = -1000,
+        mouseY = -1000;
+      canvas.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouseX = e.clientX - rect.left;
+        mouseY = e.clientY - rect.top;
+      });
+      canvas.addEventListener('mouseleave', () => {
+        mouseX = -1000;
+        mouseY = -1000;
+      });
+
+      function drawConnections() {
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 120) {
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              const alpha = (1 - dist / 120) * 0.15;
+              ctx.strokeStyle = `rgba(52, 211, 153, ${alpha})`;
+              ctx.lineWidth = 0.5;
+              ctx.stroke();
+            }
+          }
+          // Connect to mouse
+          const dx = particles[i].x - mouseX;
+          const dy = particles[i].y - mouseY;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 160) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(mouseX, mouseY);
+            const alpha = (1 - dist / 160) * 0.25;
+            ctx.strokeStyle = `rgba(52, 211, 153, ${alpha})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+      }
+
+      function animateParticles() {
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach(p => {
+          p.update();
+          p.draw();
+        });
+        drawConnections();
+        requestAnimationFrame(animateParticles);
+      }
+
+      resize();
+      initParticles();
+      animateParticles();
+
+      window.addEventListener('resize', () => {
+        resize();
+        initParticles();
+      });
+    }
+
+    /* ────── 6. Project Carousels ────── */
+    document.querySelectorAll('[data-carousel]').forEach(container => {
+      const images = [
+        container.querySelector('.carousel-img')
+      ];
+      const name = container.dataset.carousel;
+      for (let i = 2; i <= 3; i++) {
+        const img = new Image();
+        img.src = `screenshots/${name}-${i}.png`;
+        img.alt = container.querySelector('.carousel-img').alt;
+        img.className = 'w-full h-full object-cover carousel-img';
+        img.dataset.index = i - 1;
+        images.push(img);
+      }
+      let current = 0;
+      const prevBtn = container.querySelector('.carousel-prev');
+      const nextBtn = container.querySelector('.carousel-next');
+      const dots = container.querySelectorAll('.carousel-dot');
+
+      function show(index) {
+        images[current].remove();
+        current = ((index % images.length) + images.length) % images.length;
+        container.insertBefore(images[current], container.querySelector('.carousel-prev'));
+        dots.forEach((d, i) => {
+          d.classList.toggle('bg-white/80', i === current);
+          d.classList.toggle('bg-white/40', i !== current);
+        });
+      }
+
+      prevBtn.addEventListener('click', () => show(current - 1));
+      nextBtn.addEventListener('click', () => show(current + 1));
+      dots.forEach(d => d.addEventListener('click', () => show(parseInt(d.dataset.index))));
+
+      container.addEventListener('mouseenter', () => {
+        prevBtn.classList.remove('opacity-0');
+        nextBtn.classList.remove('opacity-0');
+      });
+      container.addEventListener('mouseleave', () => {
+        prevBtn.classList.add('opacity-0');
+        nextBtn.classList.add('opacity-0');
+      });
+
+      container.querySelectorAll('.carousel-img').forEach(img => {
+        img.addEventListener('click', () => openLightbox(container));
+      });
+    });
+
+    /* ────── 7. Lightbox ────── */
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = lightbox.querySelector('img');
+    const lbCounter = lightbox.querySelector('.lb-counter');
+    let lbContainer = null;
+
+    function openLightbox(container) {
+      lbContainer = container;
+      updateLightbox();
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function updateLightbox() {
+      const img = lbContainer.querySelector('.carousel-img');
+      lbImg.src = img.src;
+      const dots = lbContainer.querySelectorAll('.carousel-dot');
+      let idx = 0;
+      dots.forEach((d, i) => { if (d.classList.contains('bg-white/80')) idx = i + 1; });
+      lbCounter.textContent = `${idx} / ${dots.length}`;
+    }
+
+    function lbNav(dir) {
+      if (!lbContainer) return;
+      const btn = dir === -1 ? lbContainer.querySelector('.carousel-prev') : lbContainer.querySelector('.carousel-next');
+      btn.click();
+      updateLightbox();
+    }
+
+    lightbox.querySelector('.lb-close').addEventListener('click', closeLightbox);
+    lightbox.querySelector('.lb-prev').addEventListener('click', () => lbNav(-1));
+    lightbox.querySelector('.lb-next').addEventListener('click', () => lbNav(1));
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') lbNav(-1);
+      if (e.key === 'ArrowRight') lbNav(1);
+    });
+
+    /* ────── 8. Smooth scroll for "View Portfolio" / "Hire Me" ────── */
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          const offset = 80;
+          const top = target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
+
+  })();
+</script>
+
+<div id="lightbox">
+  <span class="lb-close">&times;</span>
+  <span class="lb-prev">&#10094;</span>
+  <span class="lb-next">&#10095;</span>
+  <img src="" alt="lightbox" />
+  <div class="lb-counter"></div>
+</div>
+</body>
+</html>
