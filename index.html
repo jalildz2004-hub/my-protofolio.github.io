@@ -1,558 +1,965 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Abdel Djalil Messaoud Aberkane | Software Developer &amp; Database Specialist</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Abdel Djalil Messaoud Aberkane — Software Developer specializing in Python, PySide6 (Qt), Database Architecture, and Full-Stack Web Development. Available for freelance & contracts.">
+    <meta name="keywords" content="Python Developer, PySide6, Qt, Desktop Application, Database, Flask, Full-Stack, Portfolio, Abdel Djalil">
+    <meta name="author" content="Abdel Djalil Messaoud Aberkane">
+    <meta property="og:title" content="Abdel Djalil .dev — Python Desktop & Database Specialist">
+    <meta property="og:description" content="Engineering High-Performance Desktop Apps, Databases & Web Dashboards">
+    <meta property="og:type" content="website">
+    <title>Abdel Djalil .dev — Python Desktop App & Database Specialist</title>
 
-  <!-- Tailwind CSS via CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'system-ui', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
-          },
-          animation: {
-            'fade-in': 'fadeIn 0.6s ease-out forwards',
-            'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
-          },
-          keyframes: {
-            fadeIn: {
-              '0%': { opacity: '0', transform: 'translateY(20px)' },
-              '100%': { opacity: '1', transform: 'translateY(0)' },
-            },
-            pulseGlow: {
-              '0%, 100%': { boxShadow: '0 0 8px rgba(52,211,153,0.3)' },
-              '50%': { boxShadow: '0 0 24px rgba(52,211,153,0.6)' },
-            },
-          },
-        },
-      },
-    };
-  </script>
+    <!-- Tailwind CSS v3 CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            900: '#0B0F19',
+                            800: '#0F172A',
+                            700: '#1E293B',
+                            600: '#334155',
+                            500: '#475569',
+                        },
+                        accent: {
+                            indigo: '#6366F1',
+                            cyan: '#06B6D4',
+                            purple: '#8B5CF6',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 2s infinite',
+                        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+                        'slide-up': 'slideUp 0.6s ease-out forwards',
+                        'slide-up-delayed': 'slideUp 0.6s ease-out 0.2s forwards',
+                        'slide-up-delayed-2': 'slideUp 0.6s ease-out 0.4s forwards',
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'scale-in': 'scaleIn 0.5s ease-out forwards',
+                        'gradient-x': 'gradientX 3s ease infinite',
+                        'typing': 'typing 3.5s steps(40, end), blinkCaret 0.75s step-end infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0.5' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        scaleIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.9)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' },
+                        },
+                        gradientX: {
+                            '0%, 100%': { 'background-position': '0% 50%' },
+                            '50%': { 'background-position': '100% 50%' },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
 
-  <!-- Google Fonts: Inter & JetBrains Mono -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <!-- FontAwesome 6 for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 
-  <style>
-    /* ── Global Reset & Base ── */
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background-color: #020617; /* slate-950 */
-      color: #e2e8f0; /* slate-200 */
-      overflow-x: hidden;
-    }
-
-    /* ── Custom Scrollbar ── */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #0f172a; }
-    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #334155; }
-
-    ::selection { background: rgba(52, 211, 153, 0.3); color: #ecfdf5; }
-
-    /* ── Utilities ── */
-    .glass { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
-    .neon-border { border: 1px solid rgba(52, 211, 153, 0.15); }
-    .neon-border:hover { border-color: rgba(52, 211, 153, 0.4); }
-    
-    .text-gradient {
-      background: linear-gradient(135deg, #34d399, #22d3ee);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .skill-card, .project-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-    .skill-card:hover, .project-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(52, 211, 153, 0.4);
-      box-shadow: 0 8px 30px rgba(52, 211, 153, 0.1);
-    }
-
-    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    .nav-link { position: relative; transition: color 0.2s ease; }
-    .nav-link::after {
-      content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px;
-      background: linear-gradient(90deg, #34d399, #22d3ee); transition: width 0.3s ease; border-radius: 2px;
-    }
-    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-    .nav-link.active { color: #34d399; }
-
-    #particles-canvas { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
-  </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
+<body class="bg-dark-900 text-gray-200 font-sans antialiased overflow-x-hidden">
 
-<body>
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- NAVBAR -->
+    <!-- ══════════════════════════════════════════════ -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 lg:h-20">
+                <!-- Brand -->
+                <a href="#" class="flex items-center space-x-2 group">
+                    <span class="text-xl lg:text-2xl font-bold bg-gradient-to-r from-accent-indigo to-accent-cyan bg-clip-text text-transparent group-hover:from-accent-cyan group-hover:to-accent-indigo transition-all duration-500">Abdel Djalil</span>
+                    <span class="text-xl lg:text-2xl font-light text-gray-400">.dev</span>
+                </a>
 
-  <!-- NAVIGATION -->
-  <header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16 lg:h-20">
-        <!-- Logo -->
-        <a href="#hero" class="flex items-center gap-2 group">
-          <span class="text-xl font-bold tracking-tight">
-            <span class="text-emerald-400">&lt;</span>
-            <span class="text-white group-hover:text-emerald-300 transition-colors">AbdelDjalil</span>
-            <span class="text-emerald-400">/&gt;</span>
-          </span>
-        </a>
-
-        <!-- Desktop Nav -->
-        <nav class="hidden md:flex items-center gap-8">
-          <a href="#about" class="nav-link text-sm font-medium text-zinc-400 hover:text-white">About</a>
-          <a href="#experience" class="nav-link text-sm font-medium text-zinc-400 hover:text-white">Experience</a>
-          <a href="#skills" class="nav-link text-sm font-medium text-zinc-400 hover:text-white">Skills</a>
-          <a href="#projects" class="nav-link text-sm font-medium text-zinc-400 hover:text-white">Projects</a>
-          <a href="#contact" class="nav-link text-sm font-medium text-zinc-400 hover:text-white">Contact</a>
-          <a href="#contact" class="px-5 py-2 text-sm font-semibold rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20 transition-all">
-            <i class="fa-regular fa-paper-plane mr-1.5"></i> Hire Me
-          </a>
-        </nav>
-      </div>
-    </div>
-  </header>
-
-
-  <!-- HERO SECTION -->
-  <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-    <canvas id="particles-canvas"></canvas>
-
-    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
-      <!-- Status Badge -->
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 mb-6 rounded-full border border-zinc-800 bg-zinc-900/80 text-xs font-mono text-zinc-400 neon-border">
-        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span class="text-emerald-400">Available Immediately</span>
-        <span class="text-zinc-600">|</span>
-        <span class="text-zinc-400"><i class="fa-solid fa-location-dot text-emerald-400 mr-1"></i>Sétif, Algeria</span>
-      </div>
-
-      <!-- Main Title -->
-      <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight tracking-tight text-white">
-        Abdel Djalil Messaoud Aberkane
-      </h1>
-      <h2 class="mt-2 text-2xl sm:text-3xl md:text-4xl font-semibold text-gradient">
-        Software &amp; Desktop Application Developer
-      </h2>
-      <p class="mt-2 text-lg sm:text-xl font-mono text-cyan-400">
-        Database Specialist (SQLite, MySQL)
-      </p>
-
-      <!-- Subtitle -->
-      <p class="mt-6 max-w-2xl mx-auto text-base sm:text-lg text-zinc-400 leading-relaxed">
-        Higher Technician in Computer Science with <span class="text-emerald-400 font-semibold">2.5 years of enterprise experience</span> 
-        building production-ready desktop GUI applications (PySide6/Qt) &amp; full-stack web solutions with complete deployment pipelines (Nuitka, Inno Setup).
-      </p>
-
-      <!-- Buttons -->
-      <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="#projects" class="w-full sm:w-auto px-8 py-3.5 text-sm font-semibold rounded-xl bg-emerald-500 text-zinc-900 hover:bg-emerald-400 transition-all inline-flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20">
-          <i class="fa-regular fa-folder-open"></i> View Portfolio
-        </a>
-        <a href="#contact" class="w-full sm:w-auto px-8 py-3.5 text-sm font-semibold rounded-xl border border-zinc-700 text-zinc-300 hover:border-emerald-500/50 hover:text-emerald-400 transition-all inline-flex items-center justify-center gap-2">
-          <i class="fa-regular fa-envelope"></i> Contact Me
-        </a>
-      </div>
-
-      <!-- Quick Metrics -->
-      <div class="mt-14 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm font-mono text-zinc-500">
-        <span><strong class="text-emerald-400">2.5 Yrs</strong> Experience @ Sonelgaz</span>
-        <span>◆</span>
-        <span><strong class="text-emerald-400">PySide6 / Qt</strong> Specialist</span>
-        <span>◆</span>
-        <span><strong class="text-emerald-400">Nuitka &amp; Inno Setup</strong> Deployment</span>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ABOUT ME -->
-  <section id="about" class="relative py-20 border-t border-zinc-800/50">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-
-        <!-- Code Block Card -->
-        <div class="reveal">
-          <div class="relative bg-zinc-900/90 rounded-2xl border border-zinc-800 p-6 font-mono text-sm leading-relaxed neon-border">
-            <div class="flex items-center gap-2 mb-4 pb-3 border-b border-zinc-800 text-xs text-zinc-500">
-              <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
-              <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
-              <span class="w-3 h-3 rounded-full bg-emerald-500/60"></span>
-              <span class="ml-2">profile_summary.py</span>
-            </div>
-            <pre class="text-zinc-300"><span class="text-purple-400">class</span> <span class="text-yellow-300">SoftwareDeveloper</span>:
-  <span class="text-purple-400">def</span> <span class="text-cyan-300">__init__</span>(<span class="text-zinc-400">self</span>):
-    <span class="text-zinc-400">self</span>.name = <span class="text-emerald-400">"Abdel Djalil Messaoud Aberkane"</span>
-    <span class="text-zinc-400">self</span>.degree = <span class="text-emerald-400">"Higher Technician Diploma"</span>
-    <span class="text-zinc-400">self</span>.specialization = <span class="text-emerald-400">"Databases & CS"</span>
-    <span class="text-zinc-400">self</span>.experience_years = <span class="text-emerald-400">2.5</span>
-    <span class="text-zinc-400">self</span>.languages = [<span class="text-emerald-400">"Arabic"</span>, <span class="text-emerald-400">"English"</span>, <span class="text-emerald-400">"French"</span>]
-
-  <span class="text-purple-400">def</span> <span class="text-cyan-300">get_expertise</span>(<span class="text-zinc-400">self</span>):
-    <span class="text-purple-400">return</span> {
-      <span class="text-emerald-400">"Desktop"</span>: <span class="text-emerald-400">"Python, PySide6 (Qt)"</span>,
-      <span class="text-emerald-400">"Web"</span>: <span class="text-emerald-400">"HTML, CSS, PHP, JS, Flask, Django"</span>,
-      <span class="text-emerald-400">"Database"</span>: <span class="text-emerald-400">"SQLite, MySQL Query Tuning"</span>,
-      <span class="text-emerald-400">"Deployment"</span>: <span class="text-emerald-400">"Nuitka Compiles, Inno Setup"</span>
-    }</pre>
-          </div>
-        </div>
-
-        <!-- Text Summary -->
-        <div class="reveal">
-          <span class="text-xs font-mono text-emerald-400 tracking-widest uppercase">// professional_summary</span>
-          <h2 class="mt-3 text-3xl font-bold text-white">
-            End-to-End Software Lifecycle <span class="text-gradient">Specialist</span>
-          </h2>
-          <p class="mt-4 text-zinc-400 leading-relaxed">
-            Higher Technician in Computer Science specializing in Database Management, with 2.5 years of hands-on experience in desktop and web application development using <strong>Python, PySide6, and JavaScript</strong>.
-          </p>
-          <p class="mt-3 text-zinc-400 leading-relaxed">
-            Proven track record building and deploying production-ready applications with full database integration (SQLite, MySQL). Skilled in end-to-end software lifecycle from design to compilation and installer deployment (Nuitka, Inno Setup).
-          </p>
-          
-          <!-- Key Badges -->
-          <div class="mt-6 flex flex-wrap gap-2.5 text-xs font-mono">
-            <span class="px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300">Desktop GUI Dev</span>
-            <span class="px-3 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-300">Database Optimization</span>
-            <span class="px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/30 text-purple-300">EXE Compilation</span>
-            <span class="px-3 py-1.5 rounded-lg bg-zinc-800 border border-zinc-700 text-zinc-300">IT Maintenance</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- PROFESSIONAL EXPERIENCE & EDUCATION -->
-  <section id="experience" class="relative py-20 border-t border-zinc-800/50">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="text-center reveal mb-14">
-        <span class="text-xs font-mono text-emerald-400 tracking-widest uppercase">// career_path</span>
-        <h2 class="mt-2 text-3xl font-bold text-white">Experience &amp; <span class="text-gradient">Education</span></h2>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-8">
-        
-        <!-- Experience Card -->
-        <div class="reveal p-6 rounded-2xl border border-zinc-800 bg-zinc-900/40 neon-border flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between">
-              <span class="px-3 py-1 text-xs font-mono rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">2024 – 2026 · 2.5 Years</span>
-              <span class="text-xs font-mono text-zinc-500"><i class="fa-solid fa-location-dot mr-1"></i>Sétif, Algeria</span>
-            </div>
-            <h3 class="mt-4 text-xl font-bold text-white">Software Developer</h3>
-            <p class="text-sm font-mono text-emerald-400">Sonelgaz</p>
-            
-            <ul class="mt-5 space-y-3 text-sm text-zinc-400">
-              <li class="flex items-start gap-2.5">
-                <i class="fa-solid fa-check text-emerald-400 mt-1 text-xs"></i>
-                <span>Developed and maintained desktop applications using Python and PySide6 (Qt framework) for internal business processes.</span>
-              </li>
-              <li class="flex items-start gap-2.5">
-                <i class="fa-solid fa-check text-emerald-400 mt-1 text-xs"></i>
-                <span>Built web applications and interfaces using HTML, CSS, PHP, and JavaScript for internal tools and dashboards.</span>
-              </li>
-              <li class="flex items-start gap-2.5">
-                <i class="fa-solid fa-check text-emerald-400 mt-1 text-xs"></i>
-                <span>Designed and administered SQLite and MySQL databases, ensuring data integrity and optimized query performance.</span>
-              </li>
-              <li class="flex items-start gap-2.5">
-                <i class="fa-solid fa-check text-emerald-400 mt-1 text-xs"></i>
-                <span>Managed full application deployment pipeline using Nuitka compilation and Inno Setup installer creation.</span>
-              </li>
-              <li class="flex items-start gap-2.5">
-                <i class="fa-solid fa-check text-emerald-400 mt-1 text-xs"></i>
-                <span>Provided IT systems maintenance and technical support across departments, minimizing downtime.</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Education Card -->
-        <div class="reveal p-6 rounded-2xl border border-zinc-800 bg-zinc-900/40 neon-border flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between">
-              <span class="px-3 py-1 text-xs font-mono rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">2024 – 2026</span>
-              <span class="text-xs font-mono text-zinc-500"><i class="fa-solid fa-graduation-cap mr-1"></i>Diploma</span>
-            </div>
-            <h3 class="mt-4 text-xl font-bold text-white">Higher Technician Diploma</h3>
-            <p class="text-sm font-mono text-cyan-400">Computer Science — Database Management</p>
-            <p class="mt-2 text-xs text-zinc-400">
-              National Institute of Vocational Training (INSFP) · Ain Tbinet, Sétif, Algeria
-            </p>
-
-            <!-- Languages Subsection -->
-            <div class="mt-8 pt-6 border-t border-zinc-800">
-              <h4 class="text-xs font-mono uppercase text-emerald-400 tracking-wider mb-4">// Languages Spoken</h4>
-              <div class="space-y-3 text-sm">
-                <div class="flex justify-between items-center">
-                  <span class="text-zinc-300">Arabic</span>
-                  <span class="font-mono text-xs text-emerald-400">●●●●● Native</span>
+                <!-- Desktop Nav Links -->
+                <div class="hidden lg:flex items-center space-x-1">
+                    <a href="#about" class="nav-link px-4 py-2 text-sm font-medium text-gray-400 hover:text-white rounded-lg transition-all duration-300 relative">About</a>
+                    <a href="#services" class="nav-link px-4 py-2 text-sm font-medium text-gray-400 hover:text-white rounded-lg transition-all duration-300 relative">Services</a>
+                    <a href="#projects" class="nav-link px-4 py-2 text-sm font-medium text-gray-400 hover:text-white rounded-lg transition-all duration-300 relative">Projects</a>
+                    <a href="#experience" class="nav-link px-4 py-2 text-sm font-medium text-gray-400 hover:text-white rounded-lg transition-all duration-300 relative">Experience</a>
+                    <a href="#skills" class="nav-link px-4 py-2 text-sm font-medium text-gray-400 hover:text-white rounded-lg transition-all duration-300 relative">Skills</a>
+                    <a href="#contact" class="nav-link px-4 py-2 text-sm font-medium text-gray-400 hover:text-white rounded-lg transition-all duration-300 relative">Contact</a>
                 </div>
-                <div class="flex justify-between items-center">
-                  <span class="text-zinc-300">English</span>
-                  <span class="font-mono text-xs text-emerald-400">●●●●○ Professional</span>
+
+                <!-- Desktop CTA -->
+                <div class="hidden lg:flex items-center space-x-4">
+                    <span class="flex items-center space-x-2 text-xs font-medium text-emerald-400 bg-emerald-400/10 px-3 py-1.5 rounded-full border border-emerald-400/20">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse-glow"></span>
+                        <span>Available for Freelance</span>
+                    </span>
+                    <a href="#contact" class="relative group px-5 py-2.5 rounded-xl font-semibold text-sm overflow-hidden">
+                        <span class="absolute inset-0 bg-gradient-to-r from-accent-indigo to-accent-cyan rounded-xl"></span>
+                        <span class="absolute inset-0 bg-gradient-to-r from-accent-cyan to-accent-indigo rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+                        <span class="relative text-white">Get in Touch</span>
+                    </a>
                 </div>
-                <div class="flex justify-between items-center">
-                  <span class="text-zinc-300">French</span>
-                  <span class="font-mono text-xs text-cyan-400">●●●○○ Intermediate</span>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="lg:hidden flex items-center justify-center w-10 h-10 rounded-xl bg-dark-700/50 text-gray-400 hover:text-white transition-colors" aria-label="Toggle menu">
+                    <i data-lucide="menu" class="w-5 h-5" id="menu-icon-open"></i>
+                    <i data-lucide="x" class="w-5 h-5 hidden" id="menu-icon-close"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden hidden">
+            <div class="glass-card mx-4 mt-2 rounded-2xl border border-white/5 p-4 space-y-2">
+                <a href="#about" class="mobile-nav-link block px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">About</a>
+                <a href="#services" class="mobile-nav-link block px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Services</a>
+                <a href="#projects" class="mobile-nav-link block px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Projects</a>
+                <a href="#experience" class="mobile-nav-link block px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Experience</a>
+                <a href="#skills" class="mobile-nav-link block px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Skills</a>
+                <a href="#contact" class="mobile-nav-link block px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Contact</a>
+                <div class="pt-2 border-t border-white/5">
+                    <a href="#contact" class="block px-4 py-3 text-sm font-semibold text-center text-white bg-gradient-to-r from-accent-indigo to-accent-cyan rounded-xl hover:opacity-90 transition-opacity">Get in Touch</a>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
+    </nav>
 
-      </div>
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- HERO SECTION -->
+    <!-- ══════════════════════════════════════════════ -->
+    <section id="hero" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+        <!-- Animated Background Elements -->
+        <div class="hero-bg-grid absolute inset-0"></div>
+        <div class="absolute top-1/4 -left-32 w-96 h-96 bg-accent-indigo/20 rounded-full blur-[128px] animate-float"></div>
+        <div class="absolute bottom-1/4 -right-32 w-96 h-96 bg-accent-cyan/15 rounded-full blur-[128px] animate-float-delayed"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent-purple/10 rounded-full blur-[200px]"></div>
 
-    </div>
-  </section>
+        <!-- Floating Particles -->
+        <div class="particle particle-1"></div>
+        <div class="particle particle-2"></div>
+        <div class="particle particle-3"></div>
+        <div class="particle particle-4"></div>
+        <div class="particle particle-5"></div>
 
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <!-- Left Content -->
+                <div class="space-y-8">
+                    <!-- Status Badge -->
+                    <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-dark-700/50 border border-white/10 backdrop-blur-sm opacity-0 animate-fade-in">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse-glow"></span>
+                        <span class="text-sm font-medium text-emerald-400">Available Immediately for Freelance & Contracts</span>
+                    </div>
 
-  <!-- SKILLS GRID -->
-  <section id="skills" class="relative py-20 border-t border-zinc-800/50">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="text-center reveal">
-        <span class="text-xs font-mono text-emerald-400 tracking-widest uppercase">// technical_capabilities</span>
-        <h2 class="mt-2 text-3xl font-bold text-white">Skills &amp; <span class="text-gradient">Technologies</span></h2>
-      </div>
+                    <!-- Headline -->
+                    <div class="space-y-4 opacity-0 animate-slide-up">
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+                            <span class="text-white">Engineering </span>
+                            <span class="bg-gradient-to-r from-accent-indigo via-accent-purple to-accent-cyan bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient-x">High-Performance</span>
+                            <br>
+                            <span class="text-white">Desktop Apps, Databases</span>
+                            <br>
+                            <span class="text-white">& Web Dashboards</span>
+                        </h1>
+                    </div>
 
-      <div class="mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-        
-        <!-- Programming -->
-        <div class="skill-card p-5 rounded-xl border border-zinc-800 bg-zinc-900/40 text-center">
-          <i class="fa-brands fa-python text-3xl text-emerald-400"></i>
-          <h3 class="mt-3 text-sm font-semibold text-white">Python</h3>
-          <p class="text-xs text-zinc-500 font-mono">Desktop &amp; Backend</p>
-        </div>
+                    <!-- Subheadline -->
+                    <p class="text-lg text-gray-400 leading-relaxed max-w-xl opacity-0 animate-slide-up-delayed">
+                        Specializing in <span class="text-accent-cyan font-medium">Python (PySide6/Qt)</span>, <span class="text-accent-indigo font-medium">SQLite/MySQL architecture</span>, and standalone Windows executable deployment <span class="text-gray-300">(Nuitka & Inno Setup)</span>.
+                    </p>
 
-        <div class="skill-card p-5 rounded-xl border border-zinc-800 bg-zinc-900/40 text-center">
-          <i class="fa-solid fa-window-maximize text-3xl text-emerald-400"></i>
-          <h3 class="mt-3 text-sm font-semibold text-white">PySide6 (Qt)</h3>
-          <p class="text-xs text-zinc-500 font-mono">GUI Framework</p>
-        </div>
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-wrap gap-4 opacity-0 animate-slide-up-delayed-2">
+                        <a href="#projects" class="group relative inline-flex items-center px-7 py-3.5 rounded-xl font-semibold text-sm overflow-hidden transition-transform hover:scale-105 active:scale-95">
+                            <span class="absolute inset-0 bg-gradient-to-r from-accent-indigo to-accent-cyan rounded-xl"></span>
+                            <span class="absolute inset-[1px] bg-dark-800 rounded-[10px] group-hover:bg-transparent transition-colors duration-500"></span>
+                            <span class="relative text-white flex items-center gap-2">
+                                <i data-lucide="eye" class="w-4 h-4"></i>
+                                View Live Projects
+                            </span>
+                        </a>
+                        <a href="#" class="group relative inline-flex items-center px-7 py-3.5 rounded-xl font-semibold text-sm overflow-hidden transition-transform hover:scale-105 active:scale-95 bg-gradient-to-r from-accent-indigo to-accent-cyan text-white">
+                            <i data-lucide="download" class="w-4 h-4 mr-2"></i>
+                            Download Resume
+                        </a>
+                    </div>
 
-        <div class="skill-card p-5 rounded-xl border border-zinc-800 bg-zinc-900/40 text-center">
-          <i class="fa-solid fa-database text-3xl text-emerald-400"></i>
-          <h3 class="mt-3 text-sm font-semibold text-white">SQLite &amp; MySQL</h3>
-          <p class="text-xs text-zinc-500 font-mono">DB Admin &amp; Tuning</p>
-        </div>
+                    <!-- Stats Badges -->
+                    <div class="flex flex-wrap gap-3 pt-4">
+                        <div class="flex items-center space-x-2 px-4 py-2 rounded-xl bg-dark-700/30 border border-white/5 backdrop-blur-sm">
+                            <i data-lucide="calendar" class="w-4 h-4 text-accent-indigo"></i>
+                            <span class="text-sm font-medium text-gray-300">2.5+ Years Exp</span>
+                        </div>
+                        <div class="flex items-center space-x-2 px-4 py-2 rounded-xl bg-dark-700/30 border border-white/5 backdrop-blur-sm">
+                            <i data-lucide="monitor" class="w-4 h-4 text-accent-cyan"></i>
+                            <span class="text-sm font-medium text-gray-300">Native Desktop GUI Specialist</span>
+                        </div>
+                        <div class="flex items-center space-x-2 px-4 py-2 rounded-xl bg-dark-700/30 border border-white/5 backdrop-blur-sm">
+                            <i data-lucide="rocket" class="w-4 h-4 text-accent-purple"></i>
+                            <span class="text-sm font-medium text-gray-300">Production Ready</span>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="skill-card p-5 rounded-xl border border-zinc-800 bg-zinc-900/40 text-center">
-          <i class="fa-solid fa-box-archive text-3xl text-cyan-400"></i>
-          <h3 class="mt-3 text-sm font-semibold text-white">Nuitka &amp; Inno Setup</h3>
-          <p class="text-xs text-zinc-500 font-mono">EXE Compilation</p>
-        </div>
-
-        <div class="skill-card p-5 rounded-xl border border-zinc-800 bg-zinc-900/40 text-center">
-          <i class="fa-brands fa-js text-3xl text-yellow-400"></i>
-          <h3 class="mt-3 text-sm font-semibold text-white">JavaScript / Node.js</h3>
-          <p class="text-xs text-zinc-500 font-mono">Web Scripting</p>
-        </div>
-
-        <div class="skill-card p-5 rounded-xl border border-zinc-800 bg-zinc-900/40 text-center">
-          <i class="fa-brands fa-php text-3xl text-purple-400"></i>
-          <h3 class="mt-3 text-sm font-semibold text-white">PHP &amp; HTML5/CSS3</h3>
-          <p class="text-xs text-zinc-500 font-mono">Web Development</p>
-        </div>
-
-        <div class="skill-card p-5 rounded-xl border border-zinc-800 bg-zinc-900/40 text-center">
-          <i class="fa-solid fa-server text-3xl text-cyan-400"></i>
-          <h3 class="mt-3 text-sm font-semibold text-white">Flask &amp; Django</h3>
-          <p class="text-xs text-zinc-500 font-mono">Web Frameworks</p>
-        </div>
-
-        <div class="skill-card p-5 rounded-xl border border-zinc-800 bg-zinc-900/40 text-center">
-          <i class="fa-brands fa-git-alt text-3xl text-orange-400"></i>
-          <h3 class="mt-3 text-sm font-semibold text-white">Git &amp; GitHub</h3>
-          <p class="text-xs text-zinc-500 font-mono">Version Control</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- FEATURED PROJECTS -->
-  <section id="projects" class="relative py-20 border-t border-zinc-800/50">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="text-center reveal">
-        <span class="text-xs font-mono text-emerald-400 tracking-widest uppercase">// portfolio_showcase</span>
-        <h2 class="mt-2 text-3xl font-bold text-white">Featured <span class="text-gradient">Projects</span></h2>
-        <p class="mt-2 text-sm text-zinc-400">Real-world applications built with Python, PySide6, and modern databases.</p>
-      </div>
-
-      <div class="mt-12 grid md:grid-cols-2 gap-8">
-        
-        <!-- Project 1 -->
-        <div class="project-card rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between">
-              <span class="px-2.5 py-1 text-xs font-mono rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">Desktop Software</span>
-              <span class="text-xs font-mono text-zinc-500">Python + PySide6</span>
+                <!-- Right Content — Avatar + Code Snippet -->
+                <div class="relative hidden lg:flex justify-center items-center">
+                    <div class="relative">
+                        <!-- Glowing Ring -->
+                        <div class="absolute -inset-4 bg-gradient-to-r from-accent-indigo via-accent-purple to-accent-cyan rounded-full blur-lg opacity-40 animate-float"></div>
+                        <!-- Avatar -->
+                        <div class="relative w-72 h-72 xl:w-80 xl:h-80 rounded-full overflow-hidden border-2 border-white/10 shadow-2xl">
+                            <img src="assets/images/avatar.jpg" alt="Abdel Djalil Messaoud Aberkane" class="w-full h-full object-cover">
+                        </div>
+                        <!-- Floating Code Card -->
+                        <div class="absolute -bottom-8 -left-16 glass-card p-4 rounded-xl border border-white/10 shadow-xl animate-float-delayed">
+                            <pre class="text-xs font-mono"><code><span class="text-accent-purple">class</span> <span class="text-accent-cyan">Developer</span>:
+    <span class="text-accent-purple">def</span> <span class="text-yellow-400">__init__</span>(self):
+        self.name = <span class="text-emerald-400">"Abdel Djalil"</span>
+        self.role = <span class="text-emerald-400">"Desktop Dev"</span>
+        self.passion = <span class="text-emerald-400">"Building 🚀"</span></code></pre>
+                        </div>
+                        <!-- Floating Tech Badge -->
+                        <div class="absolute -top-4 -right-8 glass-card px-4 py-2 rounded-xl border border-white/10 shadow-xl animate-float">
+                            <span class="text-sm font-mono text-accent-cyan">PySide6 / Qt</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <h3 class="mt-4 text-xl font-bold text-white">Smart Inventory &amp; Invoice Manager</h3>
-            <p class="mt-2 text-sm text-zinc-400">
-              Desktop application featuring SQLite database integration, product CRUD operations, and automatic PDF invoice generation compiled into a standalone executable.
-            </p>
-
-            <div class="mt-4 flex flex-wrap gap-2 text-xs font-mono">
-              <span class="px-2.5 py-1 rounded-md bg-zinc-800 text-zinc-300">PySide6</span>
-              <span class="px-2.5 py-1 rounded-md bg-zinc-800 text-zinc-300">SQLite</span>
-              <span class="px-2.5 py-1 rounded-md bg-zinc-800 text-zinc-300">ReportLab</span>
-              <span class="px-2.5 py-1 rounded-md bg-zinc-800 text-zinc-300">Nuitka</span>
-            </div>
-          </div>
-
-          <div class="mt-6 pt-4 border-t border-zinc-800/80 flex items-center justify-between">
-            <a href="https://github.com/jalildz2004-hub" target="_blank" class="text-xs font-mono text-emerald-400 hover:text-emerald-300 inline-flex items-center gap-1.5">
-              <i class="fa-brands fa-github"></i> View Source Code
-            </a>
-          </div>
         </div>
 
-        <!-- Project 2 -->
-        <div class="project-card rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between">
-              <span class="px-2.5 py-1 text-xs font-mono rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">Web Application</span>
-              <span class="text-xs font-mono text-zinc-500">Flask / Django + MySQL</span>
-            </div>
-            <h3 class="mt-4 text-xl font-bold text-white">Client &amp; Task Analytics Dashboard</h3>
-            <p class="mt-2 text-sm text-zinc-400">
-              Responsive web dashboard with MySQL database integration, real-time Chart.js analytics, REST endpoints, and dynamic project filtering.
-            </p>
-
-            <div class="mt-4 flex flex-wrap gap-2 text-xs font-mono">
-              <span class="px-2.5 py-1 rounded-md bg-zinc-800 text-zinc-300">Python</span>
-              <span class="px-2.5 py-1 rounded-md bg-zinc-800 text-zinc-300">JavaScript</span>
-              <span class="px-2.5 py-1 rounded-md bg-zinc-800 text-zinc-300">MySQL</span>
-              <span class="px-2.5 py-1 rounded-md bg-zinc-800 text-zinc-300">Chart.js</span>
-            </div>
-          </div>
-
-          <div class="mt-6 pt-4 border-t border-zinc-800/80 flex items-center justify-between">
-            <a href="https://github.com/jalildz2004-hub" target="_blank" class="text-xs font-mono text-cyan-400 hover:text-cyan-300 inline-flex items-center gap-1.5">
-              <i class="fa-brands fa-github"></i> View Source Code
-            </a>
-          </div>
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-2 opacity-60 animate-bounce">
+            <span class="text-xs text-gray-500 uppercase tracking-widest">Scroll</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500"></i>
         </div>
+    </section>
 
-      </div>
-    </div>
-  </section>
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- ABOUT SECTION -->
+    <!-- ══════════════════════════════════════════════ -->
+    <section id="about" class="relative py-24 lg:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="space-y-6 reveal">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-accent-indigo/10 border border-accent-indigo/20">
+                        <i data-lucide="user" class="w-3.5 h-3.5 text-accent-indigo"></i>
+                        <span class="text-xs font-semibold text-accent-indigo uppercase tracking-wider">About Me</span>
+                    </div>
+                    <h2 class="text-3xl lg:text-4xl font-bold text-white">
+                        Software Developer with a
+                        <span class="bg-gradient-to-r from-accent-indigo to-accent-cyan bg-clip-text text-transparent">Passion for Quality</span>
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed">
+                        I'm a Software Developer specializing in <strong class="text-gray-200">Python, PySide6 (Qt framework), Database Architecture (SQLite, MySQL)</strong>, and <strong class="text-gray-200">Full-Stack Web Development (Flask, PHP, JS)</strong>.
+                    </p>
+                    <p class="text-gray-400 leading-relaxed">
+                        With a proven track record building enterprise desktop tools and web dashboards, I handle complete end-to-end deployment—from architecture design to <strong class="text-gray-200">Nuitka compilation</strong> and <strong class="text-gray-200">Inno Setup installers</strong>.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 pt-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-accent-indigo/10 border border-accent-indigo/20">
+                                <i data-lucide="map-pin" class="w-4 h-4 text-accent-indigo"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500">Location</p>
+                                <p class="text-sm font-medium text-gray-200">Sétif, Algeria</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-accent-cyan/10 border border-accent-cyan/20">
+                                <i data-lucide="globe" class="w-4 h-4 text-accent-cyan"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500">Languages</p>
+                                <p class="text-sm font-medium text-gray-200">AR · EN · FR</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500">Availability</p>
+                                <p class="text-sm font-medium text-emerald-400">Available Now</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-accent-purple/10 border border-accent-purple/20">
+                                <i data-lucide="mail" class="w-4 h-4 text-accent-purple"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500">Email</p>
+                                <p class="text-sm font-medium text-gray-200">jalildz2004@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- About Visual -->
+                <div class="relative reveal">
+                    <div class="glass-card rounded-2xl border border-white/5 p-6 space-y-4">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                            <div class="w-3 h-3 rounded-full bg-emerald-500/80"></div>
+                            <span class="ml-4 text-xs text-gray-500 font-mono">developer_profile.py</span>
+                        </div>
+                        <pre class="text-sm font-mono leading-relaxed overflow-x-auto"><code><span class="text-accent-purple">class</span> <span class="text-accent-cyan">DeveloperProfile</span>:
+    <span class="text-gray-500">"""Abdel Djalil Messaoud Aberkane"""</span>
 
+    name = <span class="text-emerald-400">"Abdel Djalil M. Aberkane"</span>
+    title = <span class="text-emerald-400">"Python Desktop App &amp; DB Specialist"</span>
+    location = <span class="text-emerald-400">"Sétif, Algeria"</span>
 
-  <!-- CONTACT SECTION -->
-  <section id="contact" class="relative py-20 border-t border-zinc-800/50">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
-      <span class="text-xs font-mono text-emerald-400 tracking-widest uppercase">// get_in_touch</span>
-      <h2 class="mt-2 text-3xl font-bold text-white">Let's Work <span class="text-gradient">Together</span></h2>
-      <p class="mt-3 text-zinc-400 max-w-lg mx-auto text-sm">
-        Available for freelance contracts, custom desktop software development, database design, and web tools.
-      </p>
-
-      <!-- Contact Info Box -->
-      <div class="mt-10 max-w-md mx-auto p-6 rounded-2xl border border-zinc-800 bg-zinc-900/60 neon-border space-y-4 text-left">
-        <div class="flex items-center gap-3 text-sm">
-          <i class="fa-solid fa-envelope text-emerald-400 text-lg w-6"></i>
-          <a href="mailto:jalildz2004@gmail.com" class="text-zinc-200 hover:text-emerald-400 font-mono">jalildz2004@gmail.com</a>
-        </div>
-        <div class="flex items-center gap-3 text-sm">
-          <i class="fa-solid fa-phone text-emerald-400 text-lg w-6"></i>
-          <a href="tel:+213542920204" class="text-zinc-200 hover:text-emerald-400 font-mono">+213 542 92 02 04</a>
-        </div>
-        <div class="flex items-center gap-3 text-sm">
-          <i class="fa-solid fa-location-dot text-emerald-400 text-lg w-6"></i>
-          <span class="text-zinc-300 font-mono">Sétif, Algeria</span>
-        </div>
-      </div>
-
-      <!-- Social Links -->
-      <div class="mt-8 flex items-center justify-center gap-4">
-        <a href="https://github.com/jalildz2004-hub" target="_blank" class="px-5 py-2.5 text-xs font-semibold rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:border-emerald-500/50 hover:text-emerald-400 transition-all inline-flex items-center gap-2">
-          <i class="fa-brands fa-github text-emerald-400"></i> GitHub
-        </a>
-        <a href="mailto:jalildz2004@gmail.com" class="px-5 py-2.5 text-xs font-semibold rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:border-emerald-500/50 hover:text-emerald-400 transition-all inline-flex items-center gap-2">
-          <i class="fa-regular fa-envelope text-emerald-400"></i> Email Me
-        </a>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- FOOTER -->
-  <footer class="border-t border-zinc-800/50 py-8 text-center text-xs text-zinc-600 font-mono">
-    <p>© 2026 Abdel Djalil Messaoud Aberkane — Software &amp; Desktop Application Developer</p>
-  </footer>
-
-
-  <!-- JS SCRIPTS -->
-  <script>
-    // Particle Canvas Background
-    const canvas = document.getElementById('particles-canvas');
-    if (canvas) {
-      const ctx = canvas.getContext('2d');
-      let w, h, particles = [];
-      function resize() {
-        w = canvas.width = canvas.parentElement.offsetWidth;
-        h = canvas.height = canvas.parentElement.offsetHeight;
-      }
-      class Particle {
-        constructor() { this.reset(); }
-        reset() {
-          this.x = Math.random() * w;
-          this.y = Math.random() * h;
-          this.size = Math.random() * 2 + 0.5;
-          this.speedX = (Math.random() - 0.5) * 0.4;
-          this.speedY = (Math.random() - 0.5) * 0.4;
-          this.opacity = Math.random() * 0.4 + 0.1;
-        }
-        update() {
-          this.x += this.speedX; this.y += this.speedY;
-          if (this.x < 0 || this.x > w) this.speedX *= -1;
-          if (this.y < 0 || this.y > h) this.speedY *= -1;
-        }
-        draw() {
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(52, 211, 153, ${this.opacity})`;
-          ctx.fill();
-        }
-      }
-      function initParticles() {
-        particles = Array.from({ length: 60 }, () => new Particle());
-      }
-      function animate() {
-        ctx.clearRect(0, 0, w, h);
-        particles.forEach(p => { p.update(); p.draw(); });
-        requestAnimationFrame(animate);
-      }
-      resize(); initParticles(); animate();
-      window.addEventListener('resize', () => { resize(); initParticles(); });
+    skills = {
+        <span class="text-emerald-400">"gui"</span>: [<span class="text-emerald-400">"PySide6"</span>, <span class="text-emerald-400">"Qt"</span>, <span class="text-emerald-400">"QSS"</span>],
+        <span class="text-emerald-400">"db"</span>:  [<span class="text-emerald-400">"SQLite"</span>, <span class="text-emerald-400">"MySQL"</span>],
+        <span class="text-emerald-400">"web"</span>: [<span class="text-emerald-400">"Flask"</span>, <span class="text-emerald-400">"JS"</span>, <span class="text-emerald-400">"PHP"</span>],
     }
 
-    // Scroll Reveal Observer
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  </script>
+    languages = [
+        <span class="text-emerald-400">"Arabic (Native)"</span>,
+        <span class="text-emerald-400">"English (Professional)"</span>,
+        <span class="text-emerald-400">"French (Intermediate)"</span>,
+    ]
 
+    <span class="text-accent-purple">def</span> <span class="text-yellow-400">is_available</span>(self) -> <span class="text-accent-cyan">bool</span>:
+        <span class="text-accent-purple">return</span> <span class="text-orange-400">True</span>  <span class="text-gray-500"># 🟢 Always shipping!</span></code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- SERVICES SECTION -->
+    <!-- ══════════════════════════════════════════════ -->
+    <section id="services" class="relative py-24 lg:py-32">
+        <!-- Subtle BG Glow -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-accent-indigo/5 rounded-full blur-[200px]"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center space-y-4 mb-16 reveal">
+                <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-accent-cyan/10 border border-accent-cyan/20">
+                    <i data-lucide="briefcase" class="w-3.5 h-3.5 text-accent-cyan"></i>
+                    <span class="text-xs font-semibold text-accent-cyan uppercase tracking-wider">Core Services</span>
+                </div>
+                <h2 class="text-3xl lg:text-4xl font-bold text-white">What I <span class="bg-gradient-to-r from-accent-indigo to-accent-cyan bg-clip-text text-transparent">Deliver</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">End-to-end software solutions from concept to deployment — specializing in desktop applications, database architecture, and web dashboards.</p>
+            </div>
+
+            <!-- Service Cards -->
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Card 1: Desktop GUI -->
+                <div class="service-card group glass-card rounded-2xl border border-white/5 p-8 hover:border-accent-indigo/30 transition-all duration-500 reveal">
+                    <div class="flex items-start space-x-5">
+                        <div class="flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-accent-indigo/20 to-accent-indigo/5 border border-accent-indigo/20 group-hover:border-accent-indigo/40 group-hover:shadow-lg group-hover:shadow-accent-indigo/10 transition-all duration-500 shrink-0">
+                            <i data-lucide="monitor" class="w-6 h-6 text-accent-indigo"></i>
+                        </div>
+                        <div class="space-y-3">
+                            <h3 class="text-xl font-bold text-white group-hover:text-accent-indigo transition-colors">Python Desktop GUI Development</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed">PySide6 (Qt), QSS design systems, QPainter graphics, reactive Qt Signal architecture. Building polished, native-feel desktop applications.</p>
+                            <div class="flex flex-wrap gap-2 pt-2">
+                                <span class="text-xs px-2.5 py-1 rounded-lg bg-accent-indigo/10 text-accent-indigo border border-accent-indigo/20">PySide6</span>
+                                <span class="text-xs px-2.5 py-1 rounded-lg bg-accent-indigo/10 text-accent-indigo border border-accent-indigo/20">Qt Signals</span>
+                                <span class="text-xs px-2.5 py-1 rounded-lg bg-accent-indigo/10 text-accent-indigo border border-accent-indigo/20">QPainter</span>
+                                <span class="text-xs px-2.5 py-1 rounded-lg bg-accent-indigo/10 text-accent-indigo border border-accent-indigo/20">QSS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Packaging -->
+                <div class="service-card group glass-card rounded-2xl border border-white/5 p-8 hover:border-accent-cyan/30 transition-all duration-500 reveal">
+                    <div class="flex items-start space-x-5">
+                        <div class="flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-accent-cyan/20 to-accent-cyan/5 border border-accent-cyan/20 group-hover:border-accent-cyan/40 group-hover:shadow-lg group-hover:shadow-accent-cyan/10 transition-all duration-500 shrink-0">
+                            <i data-lucide="package" class="w-6 h-6 text-accent-cyan"></i>
+                        </div>
+                        <div class="space-y-3">
+                            <h3 class="text-xl font-bold text-white group-hover:text-accent-cyan transition-colors">Executable Packaging & Deployment</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed">Compiling Python to standalone binaries via Nuitka and generating Inno Setup Windows installers. Full CI/CD-ready deployment pipelines.</p>
+                            <div class="flex flex-wrap gap-2 pt-2">
+                                <span class="text-xs px-2.5 py-1 rounded-lg bg-accent-cyan/10 text-accent-cyan border border-accent-cyan/20">Nuitka</span>
+                                <span class="text-xs px-2.5 py-1 rounded-lg bg-accent-cyan/10 text-accent-cyan border border-accent-cyan/20">Inno Setup</span>
+                                <span class="text-xs px-2.5 py-1 rounded-lg bg-accent-cyan/10 text-accent-cyan border border-accent-cyan/20">.exe</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Database -->
+                <div class="service-card group glass-card rounded-2xl border border-white/5 p-8 hover:border-accent-purple/30 transition-all duration-500 reveal">
+                    <div class="flex items-start space-x-5">
+                        <div class="flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-accent-purple/20 to-accent-purple/5 border border-accent-purple/20 group-hover:border-accent-purple/40 group-hover:shadow-lg group-hover:shadow-accent-purple/10 transition-all duration-500 shrink-0">
+                            <i data-lucide="database" class="w-6 h-6 text-accent-purple"></i>
+                        </div>
+                        <div class="space-y-3">
+                            <h3 class="text-xl font-bold text-white group-hover:text-accent-purple transition-colors">Database Engineering</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed">SQLite & MySQL schema design, query optimization, data integrity enforcement, and REST API integration. Enterprise-grade data architecture.</p>
+                            <div class="flex flex-wrap gap-2 pt-2">
+                                <span class="text-xs px-2.5 py-1 rounded-lg bg-accent-purple/10 text-accent-purple border border-accent-purple/20">SQLite</span>
+                                <span class="text-xs px-2.5 py-1 rounded-lg bg-accent-purple/10 text-accent-purple border border-accent-purple/20">MySQL</span>
+                                <span class="text-xs px-2.5 py-1 rounded-lg bg-accent-purple/10 text-accent-purple border border-accent-purple/20">REST API</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Web -->
+                <div class="service-card group glass-card rounded-2xl border border-white/5 p-8 hover:border-emerald-400/30 transition-all duration-500 reveal">
+                    <div class="flex items-start space-x-5">
+                        <div class="flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-400/20 to-emerald-400/5 border border-emerald-400/20 group-hover:border-emerald-400/40 group-hover:shadow-lg group-hover:shadow-emerald-400/10 transition-all duration-500 shrink-0">
+                            <i data-lucide="globe" class="w-6 h-6 text-emerald-400"></i>
+                        </div>
+                        <div class="space-y-3">
+                            <h3 class="text-xl font-bold text-white group-hover:text-emerald-400 transition-colors">Web Dashboards & APIs</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed">Full-stack applications using Flask, PHP, JavaScript, Tailwind CSS, and ApexCharts. Interactive dashboards with real-time data visualization.</p>
+                            <div class="flex flex-wrap gap-2 pt-2">
+                                <span class="text-xs px-2.5 py-1 rounded-lg bg-emerald-400/10 text-emerald-400 border border-emerald-400/20">Flask</span>
+                                <span class="text-xs px-2.5 py-1 rounded-lg bg-emerald-400/10 text-emerald-400 border border-emerald-400/20">JavaScript</span>
+                                <span class="text-xs px-2.5 py-1 rounded-lg bg-emerald-400/10 text-emerald-400 border border-emerald-400/20">ApexCharts</span>
+                                <span class="text-xs px-2.5 py-1 rounded-lg bg-emerald-400/10 text-emerald-400 border border-emerald-400/20">Tailwind</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- PROJECTS SECTION -->
+    <!-- ══════════════════════════════════════════════ -->
+    <section id="projects" class="relative py-24 lg:py-32">
+        <div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-accent-cyan/5 rounded-full blur-[200px]"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center space-y-4 mb-12 reveal">
+                <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-accent-indigo/10 border border-accent-indigo/20">
+                    <i data-lucide="folder-open" class="w-3.5 h-3.5 text-accent-indigo"></i>
+                    <span class="text-xs font-semibold text-accent-indigo uppercase tracking-wider">Featured Projects</span>
+                </div>
+                <h2 class="text-3xl lg:text-4xl font-bold text-white">Work I'm <span class="bg-gradient-to-r from-accent-indigo to-accent-cyan bg-clip-text text-transparent">Proud Of</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Production-ready applications built with care, from architecture to deployment.</p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex justify-center mb-12 reveal">
+                <div class="inline-flex p-1 rounded-xl bg-dark-700/50 border border-white/5 backdrop-blur-sm">
+                    <button data-filter="all" class="filter-btn active px-5 py-2.5 text-sm font-medium rounded-lg transition-all duration-300">All</button>
+                    <button data-filter="desktop" class="filter-btn px-5 py-2.5 text-sm font-medium rounded-lg transition-all duration-300 text-gray-400 hover:text-white">Desktop Apps</button>
+                    <button data-filter="web" class="filter-btn px-5 py-2.5 text-sm font-medium rounded-lg transition-all duration-300 text-gray-400 hover:text-white">Web Apps</button>
+                </div>
+            </div>
+
+            <!-- Project Cards -->
+            <div class="space-y-16">
+                <!-- Project 1: Nexus Inventory -->
+                <div class="project-card" data-category="desktop">
+                    <div class="glass-card rounded-2xl border border-white/5 overflow-hidden hover:border-accent-indigo/20 transition-all duration-500 reveal">
+                        <div class="grid lg:grid-cols-2">
+                            <!-- Screenshot Gallery -->
+                            <div class="relative p-6 lg:p-8">
+                                <div class="relative rounded-xl overflow-hidden shadow-2xl shadow-black/50 group">
+                                    <div class="project-gallery" id="nexus-gallery">
+                                        <img src="assets/images/projects/nexus-dashboard.png" alt="Nexus Inventory Dashboard" class="gallery-img active w-full h-auto rounded-xl">
+                                        <img src="assets/images/projects/nexus-products.png" alt="Nexus Inventory Products" class="gallery-img w-full h-auto rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500">
+                                        <img src="assets/images/projects/nexus-settings.png" alt="Nexus Inventory Settings" class="gallery-img w-full h-auto rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500">
+                                    </div>
+                                    <!-- Gallery Navigation -->
+                                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+                                        <button class="gallery-dot active w-2.5 h-2.5 rounded-full bg-white/30 hover:bg-white/60 transition-all" data-gallery="nexus-gallery" data-index="0"></button>
+                                        <button class="gallery-dot w-2.5 h-2.5 rounded-full bg-white/30 hover:bg-white/60 transition-all" data-gallery="nexus-gallery" data-index="1"></button>
+                                        <button class="gallery-dot w-2.5 h-2.5 rounded-full bg-white/30 hover:bg-white/60 transition-all" data-gallery="nexus-gallery" data-index="2"></button>
+                                    </div>
+                                    <!-- Hover overlay -->
+                                    <div class="absolute inset-0 bg-gradient-to-t from-dark-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
+                                </div>
+                            </div>
+                            <!-- Project Info -->
+                            <div class="p-6 lg:p-8 flex flex-col justify-center space-y-5">
+                                <div class="flex items-center space-x-3">
+                                    <span class="px-3 py-1 text-xs font-semibold rounded-lg bg-accent-indigo/10 text-accent-indigo border border-accent-indigo/20">Desktop App</span>
+                                    <span class="px-3 py-1 text-xs font-medium rounded-lg bg-dark-600/50 text-gray-400">PySide6 / Qt</span>
+                                </div>
+                                <h3 class="text-2xl lg:text-3xl font-bold text-white">Nexus Inventory</h3>
+                                <p class="text-gray-400 leading-relaxed">Commercial-grade dark-themed desktop inventory and invoice manager. Built with PySide6, featuring custom QPainter bar charts, reactive Qt Signal repository state management, and a custom frameless window with native Windows OS hit-testing (WM_NCHITTEST).</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">PySide6</span>
+                                    <span class="tech-tag">Qt Signals</span>
+                                    <span class="tech-tag">QPainter</span>
+                                    <span class="tech-tag">SQLite</span>
+                                    <span class="tech-tag">QSS</span>
+                                    <span class="tech-tag">Pytest</span>
+                                </div>
+                                <div class="flex flex-wrap gap-3 pt-2">
+                                    <a href="https://github.com/jalildz2004-hub" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-xl bg-dark-600/50 hover:bg-dark-600 border border-white/10 hover:border-white/20 text-white transition-all duration-300 hover:scale-105">
+                                        <i data-lucide="github" class="w-4 h-4"></i>
+                                        Source Code
+                                    </a>
+                                    <a href="#" class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-xl bg-gradient-to-r from-accent-indigo to-accent-cyan text-white hover:opacity-90 transition-all duration-300 hover:scale-105">
+                                        <i data-lucide="download" class="w-4 h-4"></i>
+                                        Download .exe
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: ClientFlow Dashboard -->
+                <div class="project-card" data-category="web">
+                    <div class="glass-card rounded-2xl border border-white/5 overflow-hidden hover:border-accent-cyan/20 transition-all duration-500 reveal">
+                        <div class="grid lg:grid-cols-2">
+                            <!-- Project Info (left side this time for visual variety) -->
+                            <div class="p-6 lg:p-8 flex flex-col justify-center space-y-5 order-2 lg:order-1">
+                                <div class="flex items-center space-x-3">
+                                    <span class="px-3 py-1 text-xs font-semibold rounded-lg bg-accent-cyan/10 text-accent-cyan border border-accent-cyan/20">Web App</span>
+                                    <span class="px-3 py-1 text-xs font-medium rounded-lg bg-dark-600/50 text-gray-400">Flask / REST API</span>
+                                </div>
+                                <h3 class="text-2xl lg:text-3xl font-bold text-white">ClientFlow Dashboard</h3>
+                                <p class="text-gray-400 leading-relaxed">Full-stack SaaS dashboard for client and task management. Built with Flask, SQLite, Tailwind CSS, and ApexCharts. Includes real-time KPI metrics, auto-refresh polling, custom REST API endpoints, and a zero-reload AJAX CRUD engine.</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Flask</span>
+                                    <span class="tech-tag">SQLite</span>
+                                    <span class="tech-tag">REST API</span>
+                                    <span class="tech-tag">Tailwind CSS</span>
+                                    <span class="tech-tag">ApexCharts</span>
+                                    <span class="tech-tag">JavaScript</span>
+                                </div>
+                                <div class="flex flex-wrap gap-3 pt-2">
+                                    <a href="https://github.com/jalildz2004-hub" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-xl bg-dark-600/50 hover:bg-dark-600 border border-white/10 hover:border-white/20 text-white transition-all duration-300 hover:scale-105">
+                                        <i data-lucide="github" class="w-4 h-4"></i>
+                                        Source Code
+                                    </a>
+                                    <a href="#" class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-xl bg-gradient-to-r from-accent-cyan to-accent-indigo text-white hover:opacity-90 transition-all duration-300 hover:scale-105">
+                                        <i data-lucide="external-link" class="w-4 h-4"></i>
+                                        View Live Demo
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- Screenshot Gallery -->
+                            <div class="relative p-6 lg:p-8 order-1 lg:order-2">
+                                <div class="relative rounded-xl overflow-hidden shadow-2xl shadow-black/50 group">
+                                    <div class="project-gallery" id="clientflow-gallery">
+                                        <img src="assets/images/projects/clientflow-dashboard.png" alt="ClientFlow Dashboard" class="gallery-img active w-full h-auto rounded-xl">
+                                        <img src="assets/images/projects/clientflow-fullscreen.png" alt="ClientFlow Full Screen" class="gallery-img w-full h-auto rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500">
+                                    </div>
+                                    <!-- Gallery Navigation -->
+                                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+                                        <button class="gallery-dot active w-2.5 h-2.5 rounded-full bg-white/30 hover:bg-white/60 transition-all" data-gallery="clientflow-gallery" data-index="0"></button>
+                                        <button class="gallery-dot w-2.5 h-2.5 rounded-full bg-white/30 hover:bg-white/60 transition-all" data-gallery="clientflow-gallery" data-index="1"></button>
+                                    </div>
+                                    <div class="absolute inset-0 bg-gradient-to-t from-dark-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- EXPERIENCE & EDUCATION SECTION -->
+    <!-- ══════════════════════════════════════════════ -->
+    <section id="experience" class="relative py-24 lg:py-32">
+        <div class="absolute top-1/2 left-0 w-[300px] h-[300px] bg-accent-purple/5 rounded-full blur-[200px]"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center space-y-4 mb-16 reveal">
+                <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-accent-purple/10 border border-accent-purple/20">
+                    <i data-lucide="trophy" class="w-3.5 h-3.5 text-accent-purple"></i>
+                    <span class="text-xs font-semibold text-accent-purple uppercase tracking-wider">Experience & Education</span>
+                </div>
+                <h2 class="text-3xl lg:text-4xl font-bold text-white">Professional <span class="bg-gradient-to-r from-accent-purple to-accent-indigo bg-clip-text text-transparent">Journey</span></h2>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Work Experience -->
+                <div class="reveal">
+                    <div class="glass-card rounded-2xl border border-white/5 p-8 h-full hover:border-accent-indigo/20 transition-all duration-500">
+                        <div class="flex items-center space-x-3 mb-6">
+                            <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-accent-indigo/20 to-accent-indigo/5 border border-accent-indigo/20">
+                                <i data-lucide="briefcase" class="w-5 h-5 text-accent-indigo"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white">Work Experience</h3>
+                                <p class="text-sm text-gray-500">Professional Career</p>
+                            </div>
+                        </div>
+                        <!-- Timeline Item -->
+                        <div class="relative pl-8 border-l-2 border-accent-indigo/20 space-y-6">
+                            <div class="relative">
+                                <div class="absolute -left-[2.35rem] top-1 w-4 h-4 rounded-full bg-accent-indigo border-4 border-dark-800"></div>
+                                <div class="space-y-3">
+                                    <div class="flex flex-wrap items-center gap-2">
+                                        <span class="px-3 py-1 text-xs font-semibold rounded-lg bg-accent-indigo/10 text-accent-indigo border border-accent-indigo/20">2023 – 2026</span>
+                                        <span class="text-xs text-gray-500">2.5 Years</span>
+                                    </div>
+                                    <h4 class="text-lg font-bold text-white">Software Developer</h4>
+                                    <p class="text-sm font-medium text-accent-cyan">Sonelgaz — Sétif, Algeria</p>
+                                    <ul class="space-y-2 text-sm text-gray-400">
+                                        <li class="flex items-start space-x-2">
+                                            <i data-lucide="chevron-right" class="w-4 h-4 text-accent-indigo mt-0.5 shrink-0"></i>
+                                            <span>Developed internal business desktop tools in Python & PySide6</span>
+                                        </li>
+                                        <li class="flex items-start space-x-2">
+                                            <i data-lucide="chevron-right" class="w-4 h-4 text-accent-indigo mt-0.5 shrink-0"></i>
+                                            <span>Built web tools and dashboards with HTML, CSS, PHP, JavaScript, and Flask</span>
+                                        </li>
+                                        <li class="flex items-start space-x-2">
+                                            <i data-lucide="chevron-right" class="w-4 h-4 text-accent-indigo mt-0.5 shrink-0"></i>
+                                            <span>Managed SQLite and MySQL database architecture</span>
+                                        </li>
+                                        <li class="flex items-start space-x-2">
+                                            <i data-lucide="chevron-right" class="w-4 h-4 text-accent-indigo mt-0.5 shrink-0"></i>
+                                            <span>Automated deployment pipeline using Nuitka compilation and Inno Setup</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="reveal">
+                    <div class="glass-card rounded-2xl border border-white/5 p-8 h-full hover:border-accent-cyan/20 transition-all duration-500">
+                        <div class="flex items-center space-x-3 mb-6">
+                            <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-accent-cyan/20 to-accent-cyan/5 border border-accent-cyan/20">
+                                <i data-lucide="graduation-cap" class="w-5 h-5 text-accent-cyan"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white">Education</h3>
+                                <p class="text-sm text-gray-500">Academic Background</p>
+                            </div>
+                        </div>
+                        <div class="relative pl-8 border-l-2 border-accent-cyan/20 space-y-6">
+                            <div class="relative">
+                                <div class="absolute -left-[2.35rem] top-1 w-4 h-4 rounded-full bg-accent-cyan border-4 border-dark-800"></div>
+                                <div class="space-y-3">
+                                    <div class="flex flex-wrap items-center gap-2">
+                                        <span class="px-3 py-1 text-xs font-semibold rounded-lg bg-accent-cyan/10 text-accent-cyan border border-accent-cyan/20">2023 – 2026</span>
+                                    </div>
+                                    <h4 class="text-lg font-bold text-white">Higher Technician Diploma</h4>
+                                    <p class="text-sm font-medium text-accent-indigo">Computer Science & Databases</p>
+                                    <p class="text-sm text-gray-400">INSFP Ain Tbinet</p>
+                                    <div class="flex flex-wrap gap-2 pt-2">
+                                        <span class="text-xs px-2.5 py-1 rounded-lg bg-dark-600/50 text-gray-400">Computer Science</span>
+                                        <span class="text-xs px-2.5 py-1 rounded-lg bg-dark-600/50 text-gray-400">Database Administration</span>
+                                        <span class="text-xs px-2.5 py-1 rounded-lg bg-dark-600/50 text-gray-400">Software Engineering</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Languages section within education card -->
+                        <div class="mt-8 pt-6 border-t border-white/5">
+                            <div class="flex items-center space-x-2 mb-4">
+                                <i data-lucide="languages" class="w-4 h-4 text-accent-purple"></i>
+                                <h4 class="text-sm font-semibold text-white uppercase tracking-wider">Languages</h4>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-300">Arabic</span>
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-32 h-1.5 rounded-full bg-dark-600 overflow-hidden">
+                                            <div class="w-full h-full bg-gradient-to-r from-accent-indigo to-accent-cyan rounded-full"></div>
+                                        </div>
+                                        <span class="text-xs text-gray-500">Native</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-300">English</span>
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-32 h-1.5 rounded-full bg-dark-600 overflow-hidden">
+                                            <div class="w-[85%] h-full bg-gradient-to-r from-accent-indigo to-accent-cyan rounded-full"></div>
+                                        </div>
+                                        <span class="text-xs text-gray-500">Professional</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-300">French</span>
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-32 h-1.5 rounded-full bg-dark-600 overflow-hidden">
+                                            <div class="w-[60%] h-full bg-gradient-to-r from-accent-indigo to-accent-cyan rounded-full"></div>
+                                        </div>
+                                        <span class="text-xs text-gray-500">Intermediate</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- SKILLS SECTION -->
+    <!-- ══════════════════════════════════════════════ -->
+    <section id="skills" class="relative py-24 lg:py-32">
+        <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-accent-indigo/5 rounded-full blur-[200px]"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center space-y-4 mb-16 reveal">
+                <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-emerald-400/10 border border-emerald-400/20">
+                    <i data-lucide="cpu" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    <span class="text-xs font-semibold text-emerald-400 uppercase tracking-wider">Tech Stack</span>
+                </div>
+                <h2 class="text-3xl lg:text-4xl font-bold text-white">Skills <span class="bg-gradient-to-r from-emerald-400 to-accent-cyan bg-clip-text text-transparent">Matrix</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">A comprehensive overview of my technical toolkit, organized by domain.</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- GUI Frameworks -->
+                <div class="skill-category glass-card rounded-2xl border border-white/5 p-6 hover:border-accent-indigo/20 transition-all duration-500 reveal">
+                    <div class="flex items-center space-x-3 mb-5">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-accent-indigo/10 border border-accent-indigo/20">
+                            <i data-lucide="layout" class="w-4 h-4 text-accent-indigo"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-white uppercase tracking-wider">GUI Frameworks</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-pill skill-pill-indigo">PySide6 (Qt)</span>
+                        <span class="skill-pill skill-pill-indigo">QSS</span>
+                        <span class="skill-pill skill-pill-indigo">QPainter</span>
+                    </div>
+                </div>
+
+                <!-- Languages -->
+                <div class="skill-category glass-card rounded-2xl border border-white/5 p-6 hover:border-accent-cyan/20 transition-all duration-500 reveal">
+                    <div class="flex items-center space-x-3 mb-5">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-accent-cyan/10 border border-accent-cyan/20">
+                            <i data-lucide="code-2" class="w-4 h-4 text-accent-cyan"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-white uppercase tracking-wider">Languages</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-pill skill-pill-cyan">Python</span>
+                        <span class="skill-pill skill-pill-cyan">JavaScript</span>
+                        <span class="skill-pill skill-pill-cyan">Node.js</span>
+                        <span class="skill-pill skill-pill-cyan">PHP</span>
+                        <span class="skill-pill skill-pill-cyan">SQL</span>
+                        <span class="skill-pill skill-pill-cyan">HTML5</span>
+                        <span class="skill-pill skill-pill-cyan">CSS3</span>
+                    </div>
+                </div>
+
+                <!-- Web Frameworks -->
+                <div class="skill-category glass-card rounded-2xl border border-white/5 p-6 hover:border-accent-purple/20 transition-all duration-500 reveal">
+                    <div class="flex items-center space-x-3 mb-5">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-accent-purple/10 border border-accent-purple/20">
+                            <i data-lucide="globe" class="w-4 h-4 text-accent-purple"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-white uppercase tracking-wider">Web Frameworks</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-pill skill-pill-purple">Flask</span>
+                        <span class="skill-pill skill-pill-purple">Django</span>
+                    </div>
+                </div>
+
+                <!-- Databases -->
+                <div class="skill-category glass-card rounded-2xl border border-white/5 p-6 hover:border-emerald-400/20 transition-all duration-500 reveal">
+                    <div class="flex items-center space-x-3 mb-5">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-emerald-400/10 border border-emerald-400/20">
+                            <i data-lucide="database" class="w-4 h-4 text-emerald-400"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-white uppercase tracking-wider">Databases</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-pill skill-pill-green">SQLite</span>
+                        <span class="skill-pill skill-pill-green">MySQL</span>
+                    </div>
+                </div>
+
+                <!-- Deployment & Tools -->
+                <div class="skill-category glass-card rounded-2xl border border-white/5 p-6 hover:border-orange-400/20 transition-all duration-500 sm:col-span-2 lg:col-span-2 reveal">
+                    <div class="flex items-center space-x-3 mb-5">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-orange-400/10 border border-orange-400/20">
+                            <i data-lucide="wrench" class="w-4 h-4 text-orange-400"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-white uppercase tracking-wider">Deployment & Tools</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-pill skill-pill-orange">Nuitka</span>
+                        <span class="skill-pill skill-pill-orange">Inno Setup</span>
+                        <span class="skill-pill skill-pill-orange">Git</span>
+                        <span class="skill-pill skill-pill-orange">GitHub</span>
+                        <span class="skill-pill skill-pill-orange">MS Office</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- CONTACT SECTION -->
+    <!-- ══════════════════════════════════════════════ -->
+    <section id="contact" class="relative py-24 lg:py-32">
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-accent-indigo/5 rounded-full blur-[200px]"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center space-y-4 mb-16 reveal">
+                <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-accent-indigo/10 border border-accent-indigo/20">
+                    <i data-lucide="send" class="w-3.5 h-3.5 text-accent-indigo"></i>
+                    <span class="text-xs font-semibold text-accent-indigo uppercase tracking-wider">Get in Touch</span>
+                </div>
+                <h2 class="text-3xl lg:text-4xl font-bold text-white">Let's Build <span class="bg-gradient-to-r from-accent-indigo to-accent-cyan bg-clip-text text-transparent">Something Great</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Have a project in mind? Let's discuss how I can help bring your ideas to life.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-5 gap-8">
+                <!-- Contact Cards -->
+                <div class="lg:col-span-2 space-y-4 reveal">
+                    <!-- Email Card -->
+                    <a href="mailto:jalildz2004@gmail.com" class="group flex items-center space-x-4 glass-card rounded-xl border border-white/5 p-5 hover:border-accent-indigo/20 transition-all duration-500">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-accent-indigo/10 border border-accent-indigo/20 group-hover:bg-accent-indigo/20 transition-colors">
+                            <i data-lucide="mail" class="w-5 h-5 text-accent-indigo"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 uppercase tracking-wider">Email</p>
+                            <p class="text-sm font-medium text-gray-200 group-hover:text-accent-indigo transition-colors">jalildz2004@gmail.com</p>
+                        </div>
+                    </a>
+
+                    <!-- Phone Card -->
+                    <a href="tel:+213542920204" class="group flex items-center space-x-4 glass-card rounded-xl border border-white/5 p-5 hover:border-accent-cyan/20 transition-all duration-500">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-accent-cyan/10 border border-accent-cyan/20 group-hover:bg-accent-cyan/20 transition-colors">
+                            <i data-lucide="phone" class="w-5 h-5 text-accent-cyan"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 uppercase tracking-wider">Phone</p>
+                            <p class="text-sm font-medium text-gray-200 group-hover:text-accent-cyan transition-colors">+213 542 92 02 04</p>
+                        </div>
+                    </a>
+
+                    <!-- Location Card -->
+                    <div class="group flex items-center space-x-4 glass-card rounded-xl border border-white/5 p-5 hover:border-accent-purple/20 transition-all duration-500">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-accent-purple/10 border border-accent-purple/20 group-hover:bg-accent-purple/20 transition-colors">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-accent-purple"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 uppercase tracking-wider">Location</p>
+                            <p class="text-sm font-medium text-gray-200">Sétif, Algeria</p>
+                        </div>
+                    </div>
+
+                    <!-- GitHub Card -->
+                    <a href="https://github.com/jalildz2004-hub" target="_blank" rel="noopener noreferrer" class="group flex items-center space-x-4 glass-card rounded-xl border border-white/5 p-5 hover:border-white/20 transition-all duration-500">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-white/5 border border-white/10 group-hover:bg-white/10 transition-colors">
+                            <i data-lucide="github" class="w-5 h-5 text-white"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 uppercase tracking-wider">GitHub</p>
+                            <p class="text-sm font-medium text-gray-200 group-hover:text-white transition-colors">jalildz2004-hub</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="lg:col-span-3 reveal">
+                    <form id="contact-form" class="glass-card rounded-2xl border border-white/5 p-8 space-y-6">
+                        <div class="grid sm:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Your Name</label>
+                                <input type="text" id="name" name="name" required placeholder="John Doe" class="w-full px-4 py-3 rounded-xl bg-dark-700/50 border border-white/10 text-white placeholder-gray-500 focus:border-accent-indigo/50 focus:ring-1 focus:ring-accent-indigo/25 focus:outline-none transition-all text-sm">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Your Email</label>
+                                <input type="email" id="email" name="email" required placeholder="john@example.com" class="w-full px-4 py-3 rounded-xl bg-dark-700/50 border border-white/10 text-white placeholder-gray-500 focus:border-accent-indigo/50 focus:ring-1 focus:ring-accent-indigo/25 focus:outline-none transition-all text-sm">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="project-type" class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Project Type</label>
+                            <select id="project-type" name="project-type" class="w-full px-4 py-3 rounded-xl bg-dark-700/50 border border-white/10 text-white focus:border-accent-indigo/50 focus:ring-1 focus:ring-accent-indigo/25 focus:outline-none transition-all text-sm appearance-none cursor-pointer">
+                                <option value="" disabled selected class="text-gray-500">Select a project type</option>
+                                <option value="desktop">💻 Desktop Application</option>
+                                <option value="web">🌐 Web Application</option>
+                                <option value="database">🗄️ Database Engineering</option>
+                                <option value="other">📦 Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Message</label>
+                            <textarea id="message" name="message" required rows="5" placeholder="Tell me about your project..." class="w-full px-4 py-3 rounded-xl bg-dark-700/50 border border-white/10 text-white placeholder-gray-500 focus:border-accent-indigo/50 focus:ring-1 focus:ring-accent-indigo/25 focus:outline-none transition-all text-sm resize-none"></textarea>
+                        </div>
+                        <button type="submit" id="submit-btn" class="w-full relative group py-3.5 rounded-xl font-semibold text-sm overflow-hidden transition-transform hover:scale-[1.02] active:scale-[0.98]">
+                            <span class="absolute inset-0 bg-gradient-to-r from-accent-indigo to-accent-cyan rounded-xl"></span>
+                            <span class="absolute inset-0 bg-gradient-to-r from-accent-cyan to-accent-indigo rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+                            <span class="relative text-white flex items-center justify-center gap-2">
+                                <i data-lucide="send" class="w-4 h-4"></i>
+                                Send Message
+                            </span>
+                        </button>
+                        <!-- Form Success Message -->
+                        <div id="form-success" class="hidden items-center space-x-3 p-4 rounded-xl bg-emerald-400/10 border border-emerald-400/20">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400 shrink-0"></i>
+                            <p class="text-sm text-emerald-400">Thank you! Your message has been sent. I'll get back to you soon.</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- FOOTER -->
+    <!-- ══════════════════════════════════════════════ -->
+    <footer class="relative border-t border-white/5 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+                <p class="text-sm text-gray-500">© 2026 Abdel Djalil Messaoud Aberkane. Built with Tailwind CSS.</p>
+                <div class="flex items-center space-x-6">
+                    <a href="https://github.com/jalildz2004-hub" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-white transition-colors">
+                        <i data-lucide="github" class="w-5 h-5"></i>
+                    </a>
+                    <a href="mailto:jalildz2004@gmail.com" class="text-gray-500 hover:text-white transition-colors">
+                        <i data-lucide="mail" class="w-5 h-5"></i>
+                    </a>
+                    <a href="tel:+213542920204" class="text-gray-500 hover:text-white transition-colors">
+                        <i data-lucide="phone" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-xl bg-accent-indigo/80 hover:bg-accent-indigo text-white flex items-center justify-center shadow-lg shadow-accent-indigo/20 opacity-0 pointer-events-none transition-all duration-300 hover:scale-110" aria-label="Back to top">
+        <i data-lucide="arrow-up" class="w-5 h-5"></i>
+    </button>
+
+    <script src="script.js"></script>
 </body>
 </html>
